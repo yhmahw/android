@@ -29,6 +29,7 @@ import com.joanzapata.android.iconify.Iconify;
 
 import me.gethelloworld.android.youhadmeathelloworld.adapters.MainViewPagerAdapter;
 import me.gethelloworld.android.youhadmeathelloworld.controller.MainFragmentsStore;
+import me.gethelloworld.android.youhadmeathelloworld.listeners.OnPageToFragmentListener;
 
 
 public class MainActivity extends FragmentActivity
@@ -46,7 +47,7 @@ public class MainActivity extends FragmentActivity
 
 
     private ViewPager mPager;
-    private PagerAdapter mPagerAdapter;
+    private MainViewPagerAdapter mPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +77,11 @@ public class MainActivity extends FragmentActivity
 
             @Override
             public void onPageSelected(int position) { //TODO: Get this to call on the first load.
-                setActionBarTitle( MainFragmentsStore.getFragmentNameFromLocation(position) );
+                setActionBarTitle(MainFragmentsStore.getFragmentNameFromLocation(position));
                 invalidateOptionsMenu();
+                if (mPagerAdapter.getItem(position) instanceof OnPageToFragmentListener) {
+                    ((OnPageToFragmentListener) mPagerAdapter.getItem(position)).onPageToFragment();
+                }
             }
 
             @Override
