@@ -1,12 +1,19 @@
 package me.gethelloworld.android.youhadmeathelloworld.adapters;
 
+import android.content.Context;
 import android.database.DataSetObserver;
+import android.text.Layout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
+import android.widget.TextView;
+
+import com.loopj.android.image.SmartImageView;
 
 import java.util.List;
 
+import me.gethelloworld.android.youhadmeathelloworld.R;
 import me.gethelloworld.android.youhadmeathelloworld.api.Hackathon;
 
 /**
@@ -15,9 +22,11 @@ import me.gethelloworld.android.youhadmeathelloworld.api.Hackathon;
 public class HackathonsListAdapter implements ListAdapter {
 
     List<Hackathon> mHackathons;
+    Context mContext;
 
-    public HackathonsListAdapter(List<Hackathon> hackathons) {
+    public HackathonsListAdapter(Context context, List<Hackathon> hackathons) {
         mHackathons = hackathons;
+        mContext = context;
     }
 
     @Override
@@ -46,7 +55,7 @@ public class HackathonsListAdapter implements ListAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Hackathon getItem(int position) {
         return mHackathons.get(position);
     }
 
@@ -68,7 +77,7 @@ public class HackathonsListAdapter implements ListAdapter {
 
     @Override
     public int getViewTypeCount() {
-        return 0;
+        return 1;
     }
 
     @Override
@@ -78,7 +87,17 @@ public class HackathonsListAdapter implements ListAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        convertView = inflater.inflate(R.layout.hackathon_listitem, parent, false);
+
+        ((TextView) convertView.findViewById(R.id.hackathonlist_name)).setText(getItem(position).getName());
+        ((SmartImageView) convertView.findViewById(R.id.hackathinlist_image)).setImageUrl("http://boilermake.org/assets/hammers-f9c4f94620747178d87f76dd046ffee8.png");
+
+        convertView.setTag(getItem(position));
+
+
+        return convertView;
     }
 
 }

@@ -2,9 +2,23 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:minHeight="30dp">
+
+    <com.loopj.android.image.SmartImageView
+        android:id="@+id/hackathinlist_image"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        />
+
 
     <TextView
+
+        android:id="@+id/hackathonlist_name"
+        android:layout_toRightOf="@+id/hackathinlist_image"
+        android:text="Hackathon"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_margin="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"/>

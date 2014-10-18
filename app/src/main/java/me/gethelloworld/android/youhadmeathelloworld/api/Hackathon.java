@@ -18,4 +18,7 @@ public class Hackathon {
 
     List<String> members;
 
+    public String getName() {
+        return name;
+    }
 }

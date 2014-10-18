@@ -30,6 +30,7 @@ import io.oauth.OAuth;
 import io.oauth.OAuthCallback;
 import io.oauth.OAuthData;
 import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
+import me.gethelloworld.android.youhadmeathelloworld.api.Hackathon;
 import me.gethelloworld.android.youhadmeathelloworld.api.LoginData;
 import me.gethelloworld.android.youhadmeathelloworld.api.UserData;
 import me.gethelloworld.android.youhadmeathelloworld.auth.AuthenticationManager;
@@ -58,14 +59,14 @@ public class LoginActivity extends Activity implements OAuthCallback, Callback<U
         String token = AuthenticationManager.getAuthToken(this);
         Log.d("OAUTH", "Stored token: " + token);
         if( token != null ) {
-            openApp();
+
             LoginData loginData = new LoginData(token);
             APIManager.getAPI(this).login(loginData, this);
         }
     }
 
     private void openApp() {
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        startActivity(new Intent(LoginActivity.this, HackathonsActivity.class));
         finish();
     }
 

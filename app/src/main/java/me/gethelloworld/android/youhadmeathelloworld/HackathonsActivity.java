@@ -1,13 +1,19 @@
 package me.gethelloworld.android.youhadmeathelloworld;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import me.gethelloworld.android.youhadmeathelloworld.adapters.HackathonsListAdapter;
 import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
 import me.gethelloworld.android.youhadmeathelloworld.api.Hackathon;
+import me.gethelloworld.android.youhadmeathelloworld.data.HackathonDataManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -19,20 +25,28 @@ public class HackathonsActivity extends ListActivity implements Callback<List<Ha
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setEmpty();
-
         APIManager.getAPI(this).getHackathons(this);
 
-
-    }
-
-    private void setEmpty() {
-        //TODO: Set to a loading page.
+        Log.d("HackathonActivity", "onCreate()");
     }
 
     @Override
     public void success(List<Hackathon> hackathons, Response response) {
-        setListAdapter(new HackathonsListAdapter(hackathons));
+        if( hackathons.size() == 0 ) {
+            Toast.makeText(this, "There are currently no hackathons", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        setListAdapter(new HackathonsListAdapter(this, hackathons));
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        Hackathon hackathon = (Hackathon) v.getTag();
+
+        HackathonDataManager.setCurrentHackathon(hackathon);
+
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     @Override
@@ -41,6 +55,6 @@ public class HackathonsActivity extends ListActivity implements Callback<List<Ha
     }
 
     private void setError() {
-
+        Toast.makeText(this, "There was an error loading hackathons", Toast.LENGTH_SHORT).show();
     }
 }
