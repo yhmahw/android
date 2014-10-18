@@ -102,7 +102,7 @@ public class NavigationDrawerFragment extends Fragment {
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
                 new String[]{ //TODO: Change this to pull from a central source with fragment data.
-                        getString(R.string.title_section1),
+                        "First Item",
                         getString(R.string.title_section2),
                         getString(R.string.title_section3),
                 }));
