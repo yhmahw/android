@@ -59,6 +59,8 @@ public class LoginActivity extends Activity implements OAuthCallback, Callback<U
         Log.d("OAUTH", "Stored token: " + token);
         if( token != null ) {
             openApp();
+            LoginData loginData = new LoginData(token);
+            APIManager.getAPI(this).login(loginData, this);
         }
     }
 
@@ -97,6 +99,12 @@ public class LoginActivity extends Activity implements OAuthCallback, Callback<U
 
     @Override
     public void success(UserData userData, Response response) {
+        if(response.getStatus() == 201) {
+            Toast.makeText(this, "Welcome to Hello!", Toast.LENGTH_SHORT).show();
+        } else if (response.getStatus() == 202) {
+            Toast.makeText(this, "Welcome back!", Toast.LENGTH_SHORT).show();
+        }
+
         openApp();
     }
 
@@ -104,6 +112,9 @@ public class LoginActivity extends Activity implements OAuthCallback, Callback<U
     public void failure(RetrofitError error) {
         //TODO: Show error dialog.
         Toast.makeText(this, "Login Failed. Please try again.", Toast.LENGTH_SHORT).show();
+        if (error.getResponse().getStatus() == 406) {
+            login(null);
+        }
         Log.e("API", "Login failed with the API: " + error.getLocalizedMessage());
     }
 
