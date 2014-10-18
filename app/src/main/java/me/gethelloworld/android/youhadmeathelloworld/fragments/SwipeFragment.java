@@ -3,7 +3,7 @@ package me.gethelloworld.android.youhadmeathelloworld.fragments;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +11,11 @@ import android.view.ViewGroup;
 import com.andtinder.view.CardContainer;
 
 import me.gethelloworld.android.youhadmeathelloworld.R;
+import me.gethelloworld.android.youhadmeathelloworld.RootFragmentInteractionListener;
 
 public class SwipeFragment extends Fragment {
 
-    private OnFragmentInteractionListener mListener;
+    private RootFragmentInteractionListener  mListener;
 
     public SwipeFragment() {}
 
@@ -38,7 +39,7 @@ public class SwipeFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnFragmentInteractionListener) activity;
+            mListener = (RootFragmentInteractionListener ) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -50,7 +51,15 @@ public class SwipeFragment extends Fragment {
     }
 
     public void createCards(){
-
+        
     }
+
+    @Override
+    public void onDetach(){
+        super.onDetach();
+        mListener = null;
+    }
+
+
 
 }
