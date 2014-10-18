@@ -9,10 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-        <ImageView
+        <com.loopj.android.image.SmartImageView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/card_thumbnail_image"
-        android:background="@drawable/heart"
+        android:src="@drawable/heart"
         style="@style/card_thumbnail_image"/>
 
         <!-- Use same ID to use built-in features -->
@@ -42,7 +42,6 @@
         android:layout_below="@id/card_thumbnail_image"
         style="@style/card.shadow_outer_layout"
         android:id="@+id/card_shadow_layout"
-        android:padding="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

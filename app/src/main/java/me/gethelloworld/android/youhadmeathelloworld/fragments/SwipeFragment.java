@@ -7,8 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.andtinder.view.CardContainer;
+import com.loopj.android.image.SmartImageView;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardExpand;
@@ -19,9 +21,14 @@ import it.gmariotti.cardslib.library.view.CardView;
 import me.gethelloworld.android.youhadmeathelloworld.MainActivity;
 import me.gethelloworld.android.youhadmeathelloworld.R;
 import me.gethelloworld.android.youhadmeathelloworld.RootFragmentInteractionListener;
+import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
+import me.gethelloworld.android.youhadmeathelloworld.api.GitHubUser;
 import me.gethelloworld.android.youhadmeathelloworld.views.CustomExpandCard;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
-public class SwipeFragment extends Fragment {
+public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
 
     private RootFragmentInteractionListener  mListener;
 
@@ -40,7 +47,10 @@ public class SwipeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        createCards();
+
+
+        APIManager.getGitHubApi(getActivity()).getUser(this);
+
     }
 
     public void onButtonPressed(Uri uri) {
@@ -60,11 +70,15 @@ public class SwipeFragment extends Fragment {
         }
     }
 
-    public interface OnFragmentInteractionListener {
-        public void onFragmentInteraction(Uri uri);
+    @Override
+    public void success(GitHubUser gitHubUser, Response response) {
+
+        createCardForUser(gitHubUser); //Change this to enter the user ID of a match
+
     }
 
-    public void createCards(){
+    private void createCardForUser(GitHubUser user) {
+
         CardHeader cardHeader = new CardHeader(getActivity());
 
         CardView cardView = (CardView) getActivity().findViewById(R.id.tylor_card);
@@ -73,16 +87,25 @@ public class SwipeFragment extends Fragment {
 
         CustomExpandCard customExpandCard = new CustomExpandCard(getActivity());
 
-        CardThumbnail thumb = new CardThumbnail(getActivity());
-
         card.setSwipeable(true);
-        thumb.setDrawableResource(R.drawable.heart);
-        card.addCardThumbnail(thumb);
+
+        ((SmartImageView)cardView.findViewById(R.id.card_thumbnail_image)).setImageUrl(user.getAvatar_url());
+        ((TextView)cardView.findViewById(R.id.card_main_inner_simple_title)).setText(user.getName() + " (" + user.getLogin() + ")");
+
         cardHeader.setButtonExpandVisible(true);
         card.addCardHeader(cardHeader);
         customExpandCard.setTitle("Tylor Garrett's Info");
         card.addCardExpand(customExpandCard);
         cardView.setCard(card);
+    }
+
+    @Override
+    public void failure(RetrofitError error) {
+        //Error
+    }
+
+    public interface OnFragmentInteractionListener {
+        public void onFragmentInteraction(Uri uri);
     }
 
     @Override
