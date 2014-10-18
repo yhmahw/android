@@ -29,6 +29,8 @@ public class SwipeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_swipe, container, false);
     }
 
+
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);

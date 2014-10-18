@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,7 +24,11 @@ import android.view.ViewParent;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify;
+
 import me.gethelloworld.android.youhadmeathelloworld.adapters.MainViewPagerAdapter;
+import me.gethelloworld.android.youhadmeathelloworld.controller.MainFragmentsStore;
 
 
 public class MainActivity extends FragmentActivity
@@ -61,6 +66,25 @@ public class MainActivity extends FragmentActivity
         mPager = (ViewPager) findViewById(R.id.mainActivity_pager);
         mPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+        mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            //TODO: Not abs.
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                //Log.d("MainPager", "onPageScrolled()");
+                //TODO: Use this call to slide a indicator on the action bar for the tabs.
+                //Or add the tabs view to the AB
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                getActionBar().setTitle(MainFragmentsStore.getFragmentNameFromLocation(position) );
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
@@ -101,6 +125,23 @@ public class MainActivity extends FragmentActivity
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.main, menu);
+
+            // Set an icon in the ActionBar
+            menu.findItem(R.id.root_swipe).setIcon(
+                    new IconDrawable(this, Iconify.IconValue.fa_arrows_h)
+                            .colorRes(android.R.color.white)
+                            .actionBarSize());
+            // Set an icon in the ActionBar
+            menu.findItem(R.id.root_matches).setIcon(
+                    new IconDrawable(this, Iconify.IconValue.fa_check)
+                            .colorRes(android.R.color.white)
+                            .actionBarSize());
+            // Set an icon in the ActionBar
+            menu.findItem(R.id.root_moments).setIcon(
+                    new IconDrawable(this, Iconify.IconValue.fa_picture_o)
+                            .colorRes(android.R.color.white)
+                            .actionBarSize());
+
             restoreActionBar();
             return true;
         }
@@ -115,6 +156,19 @@ public class MainActivity extends FragmentActivity
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
+        }
+
+        switch(id) {
+            case R.id.root_swipe:
+                mPager.setCurrentItem(0);
+                break;
+            case R.id.root_matches:
+                mPager.setCurrentItem(1);
+                break;
+            case R.id.root_moments:
+                mPager.setCurrentItem(2);
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }

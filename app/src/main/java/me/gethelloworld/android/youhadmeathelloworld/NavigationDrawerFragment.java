@@ -101,7 +101,7 @@ public class NavigationDrawerFragment extends Fragment {
                 getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
-                new String[]{
+                new String[]{ //TODO: Change this to pull from a central source with fragment data.
                         getString(R.string.title_section1),
                         getString(R.string.title_section2),
                         getString(R.string.title_section3),
@@ -247,10 +247,10 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
 
-        if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
-            return true;
-        }
+//        if (item.getItemId() == R.id.action_example) {
+//            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
