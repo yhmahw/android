@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.IconButton;
 
 import com.andtinder.view.CardContainer;
+import com.joanzapata.android.iconify.Iconify;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardExpand;
@@ -24,6 +28,8 @@ import me.gethelloworld.android.youhadmeathelloworld.views.CustomExpandCard;
 public class SwipeFragment extends Fragment {
 
     private RootFragmentInteractionListener  mListener;
+    IconButton accept;
+    IconButton reject;
 
     public SwipeFragment() {}
 
@@ -34,7 +40,10 @@ public class SwipeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_swipe, container, false);
+        View v = inflater.inflate(R.layout.fragment_swipe, container, false);
+        accept = (IconButton) v.findViewById(R.id.button_accept);
+        reject = (IconButton) v.findViewById(R.id.button_reject);
+        return v;
     }
 
     @Override
@@ -71,13 +80,19 @@ public class SwipeFragment extends Fragment {
 
         Card card = new Card(getActivity());
 
-        CustomExpandCard customExpandCard = new CustomExpandCard(getActivity());
+        CardExpand cardExpand = new CustomExpandCard(getActivity());
 
         card.setSwipeable(true);
         cardHeader.setButtonExpandVisible(true);
         card.addCardHeader(cardHeader);
-        customExpandCard.setTitle("Tylor Garrett's Info");
-        card.addCardExpand(customExpandCard);
+        cardExpand.setTitle("Tylor Garrett's Info");
+        card.addCardExpand(cardExpand);
+        card.setOnExpandAnimatorEndListener(new Card.OnExpandAnimatorEndListener() {
+            @Override
+            public void onExpandEnd(Card card) {
+                Log.d("tylor", "the card has expanded");
+            }
+        });
         cardView.setCard(card);
     }
 
@@ -96,7 +111,6 @@ public class SwipeFragment extends Fragment {
         card.addCardHeader(cardHeader);
         return card;
     }
-
 
 
 }
