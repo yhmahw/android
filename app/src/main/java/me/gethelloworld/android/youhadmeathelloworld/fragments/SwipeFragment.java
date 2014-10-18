@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 
 import com.andtinder.view.CardContainer;
 
+import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.internal.CardHeader;
+import it.gmariotti.cardslib.library.view.CardView;
 import me.gethelloworld.android.youhadmeathelloworld.R;
 import me.gethelloworld.android.youhadmeathelloworld.RootFragmentInteractionListener;
 
@@ -29,7 +32,11 @@ public class SwipeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_swipe, container, false);
     }
 
-
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        createCards();
+    }
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -53,7 +60,11 @@ public class SwipeFragment extends Fragment {
     }
 
     public void createCards(){
-        
+        Card card = new Card(getActivity());
+        CardHeader header = new CardHeader(getActivity());
+        card.addCardHeader(header);
+        CardView cardView = (CardView) getActivity().findViewById(R.id.card);
+        cardView.setCard(card);
     }
 
     @Override
