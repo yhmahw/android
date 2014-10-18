@@ -111,6 +111,8 @@ public class LoginActivity extends Activity implements OAuthCallback, Callback<U
             Toast.makeText(this, "Welcome back!", Toast.LENGTH_SHORT).show();
         }
 
+        AuthenticationManager.setUsername(this, userData.getUserId());
+
         openApp();
     }
 

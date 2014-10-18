@@ -20,4 +20,19 @@ public class AuthenticationManager {
         AuthenticationManager.authToken = authToken;
         context.getSharedPreferences("auth", Context.MODE_PRIVATE).edit().putString("token", authToken).commit();
     }
+
+
+    private static String username;
+
+    public static String getUsername(Context context) {
+        if(username == null) {
+            username = context.getSharedPreferences("auth", Context.MODE_PRIVATE).getString("name", null);
+        }
+        return username;
+    }
+
+    public static void setUsername(Context context, String username) {
+        AuthenticationManager.username = username;
+        context.getSharedPreferences("auth", Context.MODE_PRIVATE).edit().putString("name", username).commit();
+    }
 }
