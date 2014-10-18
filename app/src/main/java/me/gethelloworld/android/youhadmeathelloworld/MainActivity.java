@@ -31,8 +31,7 @@ import me.gethelloworld.android.youhadmeathelloworld.adapters.MainViewPagerAdapt
 import me.gethelloworld.android.youhadmeathelloworld.controller.MainFragmentsStore;
 
 
-public class MainActivity extends FragmentActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, RootFragmentInteractionListener {
+public class MainActivity extends FragmentActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, RootFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
