@@ -132,12 +132,12 @@ public class MainActivity extends FragmentActivity
 
             // Set an icon in the ActionBar
             menu.findItem(R.id.root_swipe).setIcon(
-                    new IconDrawable(this, Iconify.IconValue.fa_arrows_h)
+                    new IconDrawable(this, Iconify.IconValue.fa_group)
                             .colorRes((currentPosition == 0) ? android.R.color.white : android.R.color.darker_gray)
                             .actionBarSize());
             // Set an icon in the ActionBar
             menu.findItem(R.id.root_matches).setIcon(
-                    new IconDrawable(this, Iconify.IconValue.fa_check)
+                    new IconDrawable(this, Iconify.IconValue.fa_comments)
                             .colorRes((currentPosition == 1) ? android.R.color.white : android.R.color.darker_gray)
                             .actionBarSize());
             // Set an icon in the ActionBar

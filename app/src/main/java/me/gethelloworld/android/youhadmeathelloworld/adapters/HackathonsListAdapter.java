@@ -61,7 +61,7 @@ public class HackathonsListAdapter implements ListAdapter {
 
     @Override
     public long getItemId(int position) {
-        return getItem(position).hashCode();
+        return getItem(position).getName().hashCode();
     }
 
     @Override

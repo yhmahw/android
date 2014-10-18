@@ -74,7 +74,7 @@ public class ChatActivity extends ListActivity {
 
         String chatID = arr.get(0) + "|" + arr.get(1);
 
-        return chatID; 
+        return chatID;
 
     }
 
