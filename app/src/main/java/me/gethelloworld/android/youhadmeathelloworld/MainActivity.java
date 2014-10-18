@@ -32,8 +32,7 @@ import me.gethelloworld.android.youhadmeathelloworld.controller.MainFragmentsSto
 import me.gethelloworld.android.youhadmeathelloworld.listeners.OnPageToFragmentListener;
 
 
-public class MainActivity extends FragmentActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, RootFragmentInteractionListener {
+public class MainActivity extends FragmentActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, RootFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.

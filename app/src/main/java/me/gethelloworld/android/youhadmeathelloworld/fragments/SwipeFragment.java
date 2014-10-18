@@ -14,10 +14,12 @@ import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardExpand;
 import it.gmariotti.cardslib.library.internal.CardHeader;
 import it.gmariotti.cardslib.library.internal.CardThumbnail;
+import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
 import it.gmariotti.cardslib.library.view.CardView;
 import me.gethelloworld.android.youhadmeathelloworld.MainActivity;
 import me.gethelloworld.android.youhadmeathelloworld.R;
 import me.gethelloworld.android.youhadmeathelloworld.RootFragmentInteractionListener;
+import me.gethelloworld.android.youhadmeathelloworld.views.CustomExpandCard;
 
 public class SwipeFragment extends Fragment {
 
@@ -65,11 +67,11 @@ public class SwipeFragment extends Fragment {
     public void createCards(){
         CardHeader cardHeader = new CardHeader(getActivity());
 
-        CardView cardView = (CardView) getActivity().findViewById(R.id.card);
+        CardView cardView = (CardView) getActivity().findViewById(R.id.tylor_card);
 
         Card card = new Card(getActivity());
 
-        CardExpand cardExpand = new CardExpand(getActivity());
+        CustomExpandCard customExpandCard = new CustomExpandCard(getActivity());
 
         CardThumbnail thumb = new CardThumbnail(getActivity());
 
@@ -78,9 +80,8 @@ public class SwipeFragment extends Fragment {
         card.addCardThumbnail(thumb);
         cardHeader.setButtonExpandVisible(true);
         card.addCardHeader(cardHeader);
-        cardExpand.setTitle("Tylor Garrett's Info");
-        card.addCardExpand(cardExpand);
-        cardHeader.setTitle("Tylor Garrett");
+        customExpandCard.setTitle("Tylor Garrett's Info");
+        card.addCardExpand(customExpandCard);
         cardView.setCard(card);
     }
 
