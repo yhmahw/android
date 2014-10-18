@@ -29,10 +29,13 @@ import java.util.UUID;
 import io.oauth.OAuth;
 import io.oauth.OAuthCallback;
 import io.oauth.OAuthData;
+import lombok.core.Main;
 import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
+import me.gethelloworld.android.youhadmeathelloworld.api.Hackathon;
 import me.gethelloworld.android.youhadmeathelloworld.api.LoginData;
 import me.gethelloworld.android.youhadmeathelloworld.api.UserData;
 import me.gethelloworld.android.youhadmeathelloworld.auth.AuthenticationManager;
+import me.gethelloworld.android.youhadmeathelloworld.data.HackathonDataManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -58,14 +61,17 @@ public class LoginActivity extends Activity implements OAuthCallback, Callback<U
         String token = AuthenticationManager.getAuthToken(this);
         Log.d("OAUTH", "Stored token: " + token);
         if( token != null ) {
-            openApp();
             LoginData loginData = new LoginData(token);
             APIManager.getAPI(this).login(loginData, this);
         }
     }
 
     private void openApp() {
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        if(HackathonDataManager.getCurrentHackathonId(this) == null) {
+            startActivity(new Intent(LoginActivity.this, HackathonsActivity.class));
+        } else {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        }
         finish();
     }
 
