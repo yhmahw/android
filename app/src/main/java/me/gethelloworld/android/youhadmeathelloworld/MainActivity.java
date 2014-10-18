@@ -75,8 +75,9 @@ public class MainActivity extends FragmentActivity
             }
 
             @Override
-            public void onPageSelected(int position) {
+            public void onPageSelected(int position) { //TODO: Get this to call on the first load.
                 setActionBarTitle( MainFragmentsStore.getFragmentNameFromLocation(position) );
+                invalidateOptionsMenu();
             }
 
             @Override
@@ -86,7 +87,7 @@ public class MainActivity extends FragmentActivity
         });
         mPager.setAdapter(mPagerAdapter);
 
-        mTitle = getTitle();
+        mTitle = getTitle(); //This might be causing the initial title issue on load.
     }
 
     private void setActionBarTitle(String title) {
@@ -124,20 +125,22 @@ public class MainActivity extends FragmentActivity
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.main, menu);
 
+            int currentPosition = mPager.getCurrentItem();
+
             // Set an icon in the ActionBar
             menu.findItem(R.id.root_swipe).setIcon(
                     new IconDrawable(this, Iconify.IconValue.fa_arrows_h)
-                            .colorRes(android.R.color.white)
+                            .colorRes((currentPosition == 0) ? android.R.color.white : android.R.color.darker_gray)
                             .actionBarSize());
             // Set an icon in the ActionBar
             menu.findItem(R.id.root_matches).setIcon(
                     new IconDrawable(this, Iconify.IconValue.fa_check)
-                            .colorRes(android.R.color.white)
+                            .colorRes((currentPosition == 1) ? android.R.color.white : android.R.color.darker_gray)
                             .actionBarSize());
             // Set an icon in the ActionBar
             menu.findItem(R.id.root_moments).setIcon(
                     new IconDrawable(this, Iconify.IconValue.fa_picture_o)
-                            .colorRes(android.R.color.white)
+                            .colorRes((currentPosition == 2) ? android.R.color.white : android.R.color.darker_gray)
                             .actionBarSize());
 
             restoreActionBar();
