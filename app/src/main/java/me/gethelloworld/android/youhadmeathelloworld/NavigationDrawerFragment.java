@@ -270,6 +270,10 @@ public class NavigationDrawerFragment extends Fragment {
         return getActivity().getActionBar();
     }
 
+
+    public void close() {
+        mDrawerLayout.closeDrawers();
+    }
     /**
      * Callbacks interface that all activities using this fragment must implement.
      */
