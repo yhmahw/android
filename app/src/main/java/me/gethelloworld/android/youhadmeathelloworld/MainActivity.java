@@ -87,7 +87,6 @@ public class MainActivity extends FragmentActivity
         });
         mPager.setAdapter(mPagerAdapter);
         setActionBarTitle( MainFragmentsStore.getFragmentNameFromLocation(0) );//hack
-        mTitle = getTitle(); //This might be causing the initial title issue on load.
     }
 
     private void setActionBarTitle(String title) {

@@ -5,21 +5,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 
+import java.util.List;
+
+import me.gethelloworld.android.youhadmeathelloworld.api.Hackathon;
+
 /**
  * Created by david on 10/18/14.
  */
 public class HackathonsListAdapter implements ListAdapter {
 
+    List<Hackathon> mHackathons;
 
+    public HackathonsListAdapter(List<Hackathon> hackathons) {
+        mHackathons = hackathons;
+    }
 
     @Override
     public boolean areAllItemsEnabled() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled(int position) {
-        return false;
+        return true;
     }
 
     @Override
@@ -34,28 +42,24 @@ public class HackathonsListAdapter implements ListAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return mHackathons.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return mHackathons.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return getItem(position).hashCode();
     }
 
     @Override
     public boolean hasStableIds() {
-        return false;
+        return true;
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
-    }
 
     @Override
     public int getItemViewType(int position) {
@@ -69,6 +73,12 @@ public class HackathonsListAdapter implements ListAdapter {
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return mHackathons.isEmpty();
     }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        return null;
+    }
+
 }

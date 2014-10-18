@@ -1,36 +1,46 @@
 package me.gethelloworld.android.youhadmeathelloworld;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+
+import java.util.List;
+
+import me.gethelloworld.android.youhadmeathelloworld.adapters.HackathonsListAdapter;
+import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
+import me.gethelloworld.android.youhadmeathelloworld.api.Hackathon;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
-public class HackathonsActivity extends Activity {
+public class HackathonsActivity extends ListActivity implements Callback<List<Hackathon>> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hackathons);
+
+        setEmpty();
+
+        APIManager.getAPI(this).getHackathons(this);
+
+
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.hackathons, menu);
-        return true;
+    private void setEmpty() {
+        //TODO: Set to a loading page.
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public void success(List<Hackathon> hackathons, Response response) {
+        setListAdapter(new HackathonsListAdapter(hackathons));
+    }
+
+    @Override
+    public void failure(RetrofitError error) {
+        setError();
+    }
+
+    private void setError() {
+
     }
 }
