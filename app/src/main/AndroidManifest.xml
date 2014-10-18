@@ -26,6 +26,14 @@
             android:name=".HackathonsActivity"
             android:label="@string/title_activity_hackathons" >
         </activity>
+        <activity
+            android:name=".ChatActivity"
+            android:label="@string/title_activity_chat"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="me.gethelloworld.android.youhadmeathelloworld.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

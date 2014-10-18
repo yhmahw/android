@@ -5,9 +5,34 @@
     tools:context="me.gethelloworld.android.youhadmeathelloworld.fragments.MatchesFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Matches Fragment" />
+
+    <RelativeLayout
+        android:id="@android:id/empty"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <ImageView
+            android:id="@+id/empty_image"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:maxWidth="200dp"
+            android:src="@drawable/boilermake"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/empty_image"
+            android:layout_centerHorizontal="true"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold"
+            android:text="You have no matches :("/>
+
+    </RelativeLayout>
 
 </FrameLayout>

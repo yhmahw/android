@@ -29,6 +29,7 @@ import com.joanzapata.android.iconify.Iconify;
 
 import me.gethelloworld.android.youhadmeathelloworld.adapters.MainViewPagerAdapter;
 import me.gethelloworld.android.youhadmeathelloworld.controller.MainFragmentsStore;
+import me.gethelloworld.android.youhadmeathelloworld.listeners.OnPageToFragmentListener;
 
 
 public class MainActivity extends FragmentActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, RootFragmentInteractionListener {
@@ -45,7 +46,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 
 
     private ViewPager mPager;
-    private PagerAdapter mPagerAdapter;
+    private MainViewPagerAdapter mPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +76,11 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 
             @Override
             public void onPageSelected(int position) { //TODO: Get this to call on the first load.
-                setActionBarTitle( MainFragmentsStore.getFragmentNameFromLocation(position) );
+                setActionBarTitle(MainFragmentsStore.getFragmentNameFromLocation(position));
                 invalidateOptionsMenu();
+                if (mPagerAdapter.getItem(position) instanceof OnPageToFragmentListener) {
+                    ((OnPageToFragmentListener) mPagerAdapter.getItem(position)).onPageToFragment();
+                }
             }
 
             @Override
@@ -127,12 +131,12 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 
             // Set an icon in the ActionBar
             menu.findItem(R.id.root_swipe).setIcon(
-                    new IconDrawable(this, Iconify.IconValue.fa_arrows_h)
+                    new IconDrawable(this, Iconify.IconValue.fa_group)
                             .colorRes((currentPosition == 0) ? android.R.color.white : android.R.color.darker_gray)
                             .actionBarSize());
             // Set an icon in the ActionBar
             menu.findItem(R.id.root_matches).setIcon(
-                    new IconDrawable(this, Iconify.IconValue.fa_check)
+                    new IconDrawable(this, Iconify.IconValue.fa_comments)
                             .colorRes((currentPosition == 1) ? android.R.color.white : android.R.color.darker_gray)
                             .actionBarSize());
             // Set an icon in the ActionBar
