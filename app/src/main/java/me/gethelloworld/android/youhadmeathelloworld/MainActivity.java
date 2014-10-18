@@ -6,6 +6,7 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -99,16 +100,11 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 
 
     @Override
-    public void onNavigationDrawerItemSelected(int position) {
+    public void onNavigationDrawerItemSelected(NavigationDrawerListItem item) {
         // update the main content by replacing fragments
-        switch(position) {
-            case 0: break;
 
-        }
-        //FragmentManager fragmentManager = getFragmentManager();
-//        fragmentManager.beginTransaction()
-//                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-//                .commit();
+        startActivity(new Intent(this, item.getActivityClazz()));
+        finish();
     }
 
     public void restoreActionBar() {

@@ -34,6 +34,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="me.gethelloworld.android.youhadmeathelloworld.MainActivity" />
         </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="me.gethelloworld.android.youhadmeathelloworld.MainActivity" />
+        </activity>
+        <activity
+            android:name=".LogoutActivity"
+            android:label="@string/title_activity_logout" >
+        </activity>
     </application>
 
 </manifest>

@@ -114,6 +114,16 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
         mListener = null;
     }
 
+    public Card createCard(){
+        CardHeader cardHeader = new CardHeader(getActivity());
+        Card card = new Card(getActivity());
+        CustomExpandCard customExpandCard = new CustomExpandCard(getActivity());
+        card.setSwipeable(true);
+        cardHeader.setButtonExpandVisible(true);
+        card.addCardHeader(cardHeader);
+        return card;
+    }
+
 
 
 }

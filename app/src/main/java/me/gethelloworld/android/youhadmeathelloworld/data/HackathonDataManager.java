@@ -20,7 +20,7 @@ public class HackathonDataManager {
 
     public static String getCurrentHackathonId(Context context) {
         if(currentHackathon == null) {
-            currentHackathon = context.getSharedPreferences("hackathon", Context.MODE_PRIVATE).getString("current", null);
+            currentHackathon = context.getSharedPreferences("hackathons", Context.MODE_PRIVATE).getString("current", null);
         }
         return currentHackathon;
     }

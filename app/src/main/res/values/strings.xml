@@ -14,5 +14,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_hackathons">HackathonsActivity</string>
     <string name="title_activity_chat">ChatActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_logout">LogoutActivity</string>
 
 </resources>
