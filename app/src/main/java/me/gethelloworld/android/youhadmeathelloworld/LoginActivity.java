@@ -1,6 +1,7 @@
 package me.gethelloworld.android.youhadmeathelloworld;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,9 +27,16 @@ import java.util.UUID;
 import io.oauth.OAuth;
 import io.oauth.OAuthCallback;
 import io.oauth.OAuthData;
+import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
+import me.gethelloworld.android.youhadmeathelloworld.api.LoginData;
+import me.gethelloworld.android.youhadmeathelloworld.api.UserData;
+import me.gethelloworld.android.youhadmeathelloworld.auth.AuthenticationManager;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
-public class LoginActivity extends Activity implements OAuthCallback {
+public class LoginActivity extends Activity implements OAuthCallback, Callback<UserData> {
 
     OAuth oauth;
 
@@ -48,7 +56,7 @@ public class LoginActivity extends Activity implements OAuthCallback {
 
         JSONObject data = new JSONObject();
         try {
-            data.put("state", UUID.randomUUID().toString());
+            data.put("state", "nsgwthqergnhtj64w5htrynsj5645hywhtgst5hjqget6hq45h6j7uk6n75wb6teuejw6hrstdgvjmudtu");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -77,41 +85,21 @@ public class LoginActivity extends Activity implements OAuthCallback {
 
     @Override
     public void onFinished(final OAuthData oAuthData) {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                HttpClient client = new DefaultHttpClient();
-                Uri.Builder builder  = new Uri.Builder();
-                builder.scheme("http").authority("api-yhmahw.herokuapp.com").appendPath("login");
-                HttpPost postRequest = new HttpPost(builder.toString());
-                JSONObject jObject = new JSONObject();
-                StringEntity se = null;
-                try {
-                    Log.d("OAUTH", "Status: " + oAuthData.status + "|" + oAuthData.error + " Token from oauthio: " + oAuthData.token);
-                    jObject.put("access_token", oAuthData.token);
-                    se = new StringEntity(jObject.toString());
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-                postRequest.setHeader("Content-type", "application/json");
-                postRequest.setEntity(se);
-                HttpResponse response = null;
-                String jsonResp = null;
-                try{
-                    response = client.execute(postRequest);
+        LoginData loginData = new LoginData(oAuthData.token);
+        AuthenticationManager.setAuthToken(this, oAuthData.token);
 
-                    Log.d("OAUTH", "" + response.getStatusLine().getStatusCode() );
+        APIManager.getAPI(this).login(loginData, this);
+    }
 
-                    jsonResp = EntityUtils.toString(response.getEntity());
+    @Override
+    public void success(UserData userData, Response response) {
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+    }
 
-                    Log.d("OAUTH", "" + jsonResp);
+    @Override
+    public void failure(RetrofitError error) {
+        //TODO: Show error dialog.
 
-                }catch(IOException e){
-                    e.printStackTrace();
-
-                }
-                return null;
-            }
-        }.execute();
+        Log.e("API", "Login failed with the API: " + error.getLocalizedMessage());
     }
 }

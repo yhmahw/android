@@ -82,8 +82,10 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="android-iconify-1.0.6" level="project" />
     <orderEntry type="library" exported="" name="OAuth" level="project" />
+    <orderEntry type="library" exported="" name="retrofit-1.7.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-19.0.0" level="project" />
     <orderEntry type="library" exported="" name="lombok-1.12.4" level="project" />
+    <orderEntry type="library" exported="" name="gson-2.3" level="project" />
     <orderEntry type="module" module-name="AndTinder" exported="" />
   </component>
 </module>
