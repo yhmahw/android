@@ -43,7 +43,7 @@ public class HackathonsActivity extends ListActivity implements Callback<List<Ha
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Hackathon hackathon = (Hackathon) v.getTag();
 
-        HackathonDataManager.setCurrentHackathon(hackathon);
+        HackathonDataManager.setCurrentHackathon(this, hackathon);
 
         startActivity(new Intent(this, MainActivity.class));
         finish();
