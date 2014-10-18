@@ -4,15 +4,13 @@
     android:layout_height="match_parent"
     tools:context="me.gethelloworld.android.youhadmeathelloworld.fragments.SwipeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <it.gmariotti.cardslib.library.view.CardView
+        android:id="@+id/card"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Swipe Fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"/>
 
-    <!--<com.andtinder.view.CardContainer xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--android:id="@+id/layoutVIew"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="fill_parent" />-->
 
 </FrameLayout>
