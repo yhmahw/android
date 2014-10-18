@@ -73,11 +73,7 @@ public class SwipeFragment extends Fragment {
 
         CustomExpandCard customExpandCard = new CustomExpandCard(getActivity());
 
-        CardThumbnail thumb = new CardThumbnail(getActivity());
-
         card.setSwipeable(true);
-        thumb.setDrawableResource(R.drawable.heart);
-        card.addCardThumbnail(thumb);
         cardHeader.setButtonExpandVisible(true);
         card.addCardHeader(cardHeader);
         customExpandCard.setTitle("Tylor Garrett's Info");
@@ -89,6 +85,16 @@ public class SwipeFragment extends Fragment {
     public void onDetach(){
         super.onDetach();
         mListener = null;
+    }
+
+    public Card createCard(){
+        CardHeader cardHeader = new CardHeader(getActivity());
+        Card card = new Card(getActivity());
+        CustomExpandCard customExpandCard = new CustomExpandCard(getActivity());
+        card.setSwipeable(true);
+        cardHeader.setButtonExpandVisible(true);
+        card.addCardHeader(cardHeader);
+        return card;
     }
 
 
