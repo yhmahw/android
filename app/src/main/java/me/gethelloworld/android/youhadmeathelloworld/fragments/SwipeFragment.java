@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import com.andtinder.view.CardContainer;
 import com.loopj.android.image.SmartImageView;
+import android.widget.IconButton;
+
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardExpand;
@@ -31,6 +34,8 @@ import retrofit.client.Response;
 public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
 
     private RootFragmentInteractionListener  mListener;
+    IconButton accept;
+    IconButton reject;
 
     public SwipeFragment() {}
 
@@ -41,7 +46,10 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_swipe, container, false);
+        View v = inflater.inflate(R.layout.fragment_swipe, container, false);
+        accept = (IconButton) v.findViewById(R.id.button_accept);
+        reject = (IconButton) v.findViewById(R.id.button_reject);
+        return v;
     }
 
     @Override
@@ -85,7 +93,7 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
 
         Card card = new Card(getActivity());
 
-        CustomExpandCard customExpandCard = new CustomExpandCard(getActivity());
+        CardExpand cardExpand = new CustomExpandCard(getActivity());
 
         card.setSwipeable(true);
 
@@ -94,8 +102,14 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
 
         cardHeader.setButtonExpandVisible(true);
         card.addCardHeader(cardHeader);
-        customExpandCard.setTitle("Tylor Garrett's Info");
-        card.addCardExpand(customExpandCard);
+        cardExpand.setTitle("Tylor Garrett's Info");
+        card.addCardExpand(cardExpand);
+        card.setOnExpandAnimatorEndListener(new Card.OnExpandAnimatorEndListener() {
+            @Override
+            public void onExpandEnd(Card card) {
+                Log.d("tylor", "the card has expanded");
+            }
+        });
         cardView.setCard(card);
     }
 
@@ -123,7 +137,6 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
         card.addCardHeader(cardHeader);
         return card;
     }
-
 
 
 }

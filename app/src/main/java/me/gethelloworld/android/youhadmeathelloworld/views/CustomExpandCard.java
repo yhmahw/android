@@ -18,7 +18,7 @@ public class CustomExpandCard extends CardExpand {
     Context mContext;
 
     public CustomExpandCard(Context context) {
-        super(context, R.layout.card_expand_layout);
+        super(context, R.layout.inner_base_expand);
         mContext = context;
     }
 
