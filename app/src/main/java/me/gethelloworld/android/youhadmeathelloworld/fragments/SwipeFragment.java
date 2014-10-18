@@ -11,8 +11,11 @@ import android.view.ViewGroup;
 import com.andtinder.view.CardContainer;
 
 import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.internal.CardExpand;
 import it.gmariotti.cardslib.library.internal.CardHeader;
+import it.gmariotti.cardslib.library.internal.CardThumbnail;
 import it.gmariotti.cardslib.library.view.CardView;
+import me.gethelloworld.android.youhadmeathelloworld.MainActivity;
 import me.gethelloworld.android.youhadmeathelloworld.R;
 import me.gethelloworld.android.youhadmeathelloworld.RootFragmentInteractionListener;
 
@@ -60,10 +63,24 @@ public class SwipeFragment extends Fragment {
     }
 
     public void createCards(){
-        Card card = new Card(getActivity());
-        CardHeader header = new CardHeader(getActivity());
-        card.addCardHeader(header);
+        CardHeader cardHeader = new CardHeader(getActivity());
+
         CardView cardView = (CardView) getActivity().findViewById(R.id.card);
+
+        Card card = new Card(getActivity());
+
+        CardExpand cardExpand = new CardExpand(getActivity());
+
+        CardThumbnail thumb = new CardThumbnail(getActivity());
+
+        card.setSwipeable(true);
+        thumb.setDrawableResource(R.drawable.heart);
+        card.addCardThumbnail(thumb);
+        cardHeader.setButtonExpandVisible(true);
+        card.addCardHeader(cardHeader);
+        cardExpand.setTitle("Tylor Garrett's Info");
+        card.addCardExpand(cardExpand);
+        cardHeader.setTitle("Tylor Garrett");
         cardView.setCard(card);
     }
 
