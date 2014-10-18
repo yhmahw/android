@@ -11,13 +11,13 @@ public class AuthenticationManager {
 
     public static String getAuthToken(Context context) {
         if(authToken == null) {
-            context.getSharedPreferences("auth", Context.MODE_PRIVATE).getString("token", null);
+            authToken = context.getSharedPreferences("auth", Context.MODE_PRIVATE).getString("token", null);
         }
         return authToken;
     }
 
     public static void setAuthToken(Context context, String authToken) {
         AuthenticationManager.authToken = authToken;
-        context.getSharedPreferences("auth", Context.MODE_PRIVATE).edit().putString("token", authToken).apply();
+        context.getSharedPreferences("auth", Context.MODE_PRIVATE).edit().putString("token", authToken).commit();
     }
 }

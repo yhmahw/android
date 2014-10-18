@@ -11,10 +11,23 @@
     <TextView
         android:text="{hello}"
         android:layout_centerInParent="true"
+        android:id="@+id/hello_text"
         android:textStyle="bold"
         android:textAppearance="?android:textAppearanceLarge"
         android:textSize="60sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        android:src="@drawable/github_button"
+        android:background="@android:color/transparent"
+        android:layout_below="@+id/hello_text"
+        android:onClick="login"
+        />
+
+
 
 </RelativeLayout>

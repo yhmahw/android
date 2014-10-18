@@ -9,6 +9,8 @@ import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -45,7 +47,6 @@ public class LoginActivity extends Activity implements OAuthCallback, Callback<U
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
 
-
         oauth = new OAuth(this);
         oauth.initialize(getString(R.string.oauthio_pub));
     }
@@ -54,14 +55,16 @@ public class LoginActivity extends Activity implements OAuthCallback, Callback<U
     protected void onStart() {
         super.onStart();
 
-        JSONObject data = new JSONObject();
-        try {
-            data.put("state", "nsgwthqergnhtj64w5htrynsj5645hywhtgst5hjqget6hq45h6j7uk6n75wb6teuejw6hrstdgvjmudtu");
-        } catch (JSONException e) {
-            e.printStackTrace();
+        String token = AuthenticationManager.getAuthToken(this);
+        Log.d("OAUTH", "Stored token: " + token);
+        if( token != null ) {
+            openApp();
         }
+    }
 
-        oauth.popup("github", data, this);
+    private void openApp() {
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
     }
 
     @Override
@@ -86,6 +89,7 @@ public class LoginActivity extends Activity implements OAuthCallback, Callback<U
     @Override
     public void onFinished(final OAuthData oAuthData) {
         LoginData loginData = new LoginData(oAuthData.token);
+        Log.d("OAUTH", "Token Recieved from oauth.io: " + oAuthData.token);
         AuthenticationManager.setAuthToken(this, oAuthData.token);
 
         APIManager.getAPI(this).login(loginData, this);
@@ -93,13 +97,24 @@ public class LoginActivity extends Activity implements OAuthCallback, Callback<U
 
     @Override
     public void success(UserData userData, Response response) {
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        openApp();
     }
 
     @Override
     public void failure(RetrofitError error) {
         //TODO: Show error dialog.
-
+        Toast.makeText(this, "Login Failed. Please try again.", Toast.LENGTH_SHORT).show();
         Log.e("API", "Login failed with the API: " + error.getLocalizedMessage());
+    }
+
+    public void login(View view) {
+        JSONObject data = new JSONObject();
+        try {
+            data.put("state", "nsgwthqergnhtj64w5htrynsj5645hywhtgst5hjqget6hq45h6j7uk6n75wb6teuejw6hrstdgvjmudtu");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        oauth.popup("github", data, this);
     }
 }
