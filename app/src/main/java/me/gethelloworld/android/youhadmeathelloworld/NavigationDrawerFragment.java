@@ -20,14 +20,23 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.loopj.android.image.SmartImageView;
+
+import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
+import me.gethelloworld.android.youhadmeathelloworld.api.GitHubUser;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
-public class NavigationDrawerFragment extends Fragment {
+public class NavigationDrawerFragment extends Fragment implements Callback<GitHubUser> {
 
     /**
      * Remember the position of the selected item.
@@ -114,6 +123,13 @@ public class NavigationDrawerFragment extends Fragment {
         });
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return v;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        APIManager.getGitHubApi(getActivity()).getUser(this);
     }
 
     public boolean isDrawerOpen() {
@@ -280,6 +296,18 @@ public class NavigationDrawerFragment extends Fragment {
     public void close() {
         mDrawerLayout.closeDrawers();
     }
+
+    @Override
+    public void success(GitHubUser gitHubUser, Response response) {
+        ((SmartImageView)getView().findViewById(R.id.navigation_photo)).setImageUrl(gitHubUser.getAvatar_url());
+        ((TextView) getView().findViewById(R.id.navigation_name)).setText(gitHubUser.getName());
+    }
+
+    @Override
+    public void failure(RetrofitError error) {
+
+    }
+
     /**
      * Callbacks interface that all activities using this fragment must implement.
      */
