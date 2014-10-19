@@ -53,6 +53,7 @@ public class SwipeFragment extends Fragment {
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cardView.setCard(null);
                 String hackathon = HackathonDataManager.getCurrentHackathonId(getActivity());
                 String userId = AuthenticationManager.getUsername(getActivity());
                 Vote vote = new Vote(hackathon, userId, true);
@@ -73,6 +74,7 @@ public class SwipeFragment extends Fragment {
         reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cardView.setCard(null);
                 String hackathon = HackathonDataManager.getCurrentHackathonId(getActivity());
                 String userId = AuthenticationManager.getUsername(getActivity());
                 Vote vote = new Vote(hackathon, userId, false);
@@ -92,6 +94,7 @@ public class SwipeFragment extends Fragment {
         });
         return v;
     }
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -185,33 +188,40 @@ public class SwipeFragment extends Fragment {
     public void getNextUser() {
         Random rand = new Random();
 
-        String userId = MatchesManager.getMatchesCollection().getPotential().get( rand.nextInt(MatchesManager.getMatchesCollection().getPotential().size()) );
-        Log.d("NextUser", "Got the next user : " + userId);
-        APIManager.getGitHubApi(getActivity()).getUser(userId, new Callback<GitHubUser>() {
-            @Override
-            public void success(final GitHubUser gitHubUser, Response response) {
-                Log.d("GitHub", "Revieved next from GH");
-                APIManager.getAPI(getActivity()).getUserData(gitHubUser.getLogin(), new Callback<UserData>() {
-                    @Override
-                    public void success(UserData userData, Response response) {
-                        Log.e("GitHub", "got next");
+        int size =MatchesManager.getMatchesCollection().getPotential().size();
 
-                        displayCard(userData, gitHubUser);
-                    }
+        if(size <= 0) {
+            getView().findViewById(android.R.id.empty).setVisibility(View.VISIBLE);
+            getView().findViewById(R.id.cards_ui).setVisibility(View.INVISIBLE);
+        } else {
+            String userId = MatchesManager.getMatchesCollection().getPotential().get(rand.nextInt());
+            Log.d("NextUser", "Got the next user : " + userId);
+            APIManager.getGitHubApi(getActivity()).getUser(userId, new Callback<GitHubUser>() {
+                @Override
+                public void success(final GitHubUser gitHubUser, Response response) {
+                    Log.d("GitHub", "Revieved next from GH");
+                    APIManager.getAPI(getActivity()).getUserData(gitHubUser.getLogin(), new Callback<UserData>() {
+                        @Override
+                        public void success(UserData userData, Response response) {
+                            Log.e("GitHub", "got next");
 
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.e("API", "Error getting next");
+                            displayCard(userData, gitHubUser);
+                        }
 
-                    }
-                });
-            }
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Log.e("API", "Error getting next");
 
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e("GitHub", "Error getting next" + error.getLocalizedMessage());
-            }
-        });
+                        }
+                    });
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.e("GitHub", "Error getting next" + error.getLocalizedMessage());
+                }
+            });
+        }
 
     }
 
