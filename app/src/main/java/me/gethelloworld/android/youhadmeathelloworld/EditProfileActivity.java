@@ -8,15 +8,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.image.SmartImageView;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
 import me.gethelloworld.android.youhadmeathelloworld.api.GitHubUser;
 import me.gethelloworld.android.youhadmeathelloworld.api.Hackathon;
+import me.gethelloworld.android.youhadmeathelloworld.api.UserData;
 import me.gethelloworld.android.youhadmeathelloworld.auth.AuthenticationManager;
 import me.gethelloworld.android.youhadmeathelloworld.data.HackathonDataManager;
 import retrofit.Callback;
@@ -24,7 +28,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class EditProfileActivity extends Activity  {
+public class EditProfileActivity extends Activity implements Callback<UserData> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +49,14 @@ public class EditProfileActivity extends Activity  {
             }
         });
 
+        findViewById(R.id.edits).setVisibility(View.INVISIBLE);
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        APIManager.getAPI(this).getUserData(AuthenticationManager.getUsername(this), this);
+    }
 
     public void onDone(View view) {
 
@@ -59,7 +68,7 @@ public class EditProfileActivity extends Activity  {
 
         userUpdate.put("languages", languages);
         userUpdate.put("platforms", platforms);
-        userUpdate.put(HackathonDataManager.getCurrentHackathonId(this) + "_advert", advert);
+        userUpdate.put("advert", advert);
 
 
         APIManager.getAPI(this).updateUser(AuthenticationManager.getUsername(this), userUpdate, new Callback<Void>() {
@@ -76,6 +85,29 @@ public class EditProfileActivity extends Activity  {
 
             }
         });
+
+    }
+
+    @Override
+    public void success(UserData userData, Response response) {
+        ((EditText)findViewById(R.id.edit_platforms)).setText( asCommaList(userData.getPlatforms()) );
+        ((EditText)findViewById(R.id.edit_languages)).setText( asCommaList(userData.getLanguages()) );
+        ((EditText)findViewById(R.id.edit_hackathonAdvert)).setText( userData.getAdvert() );
+
+        findViewById(R.id.edits).setVisibility(View.VISIBLE);
+    }
+
+    private String asCommaList(List<String> strings) {
+        String foo = strings.get(0);
+        for(int i = 1; i < strings.size(); i++) {
+            foo += ", " + strings.get(i);
+        }
+        return foo;
+    }
+
+    @Override
+    public void failure(RetrofitError error) {
+        Toast.makeText(this, "There was an error loading this profile", Toast.LENGTH_SHORT).show();
 
     }
 }

@@ -37,6 +37,7 @@
 
         <LinearLayout
             android:paddingTop="10dp"
+            android:id="@+id/edits"
             android:layout_below="@id/navigation_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
