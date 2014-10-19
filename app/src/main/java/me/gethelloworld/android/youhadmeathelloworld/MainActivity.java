@@ -1,29 +1,14 @@
 package me.gethelloworld.android.youhadmeathelloworld;
 
-import android.app.Activity;
-
 import android.app.ActionBar;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.view.ViewParent;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify;
@@ -90,7 +75,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
             }
         });
         mPager.setAdapter(mPagerAdapter);
-        setActionBarTitle( MainFragmentsStore.getFragmentNameFromLocation(0) );//hack
+        setActionBarTitle(MainFragmentsStore.getFragmentNameFromLocation(0));//hack
     }
 
     private void setActionBarTitle(String title) {
@@ -157,7 +142,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
             return true;
         }
 
-        switch(id) {
+        switch (id) {
             case R.id.root_swipe:
                 mPager.setCurrentItem(0);
                 break;

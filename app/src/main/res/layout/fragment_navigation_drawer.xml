@@ -4,32 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BBB"
+    android:background="#bbb"
     android:orientation="vertical" >
 
 
     <RelativeLayout
         android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content">
 
 
-        <com.loopj.android.image.SmartImageView
+        <me.gethelloworld.android.youhadmeathelloworld.image.SmartCircularImageView
             android:id="@+id/navigation_photo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/boilermake"/>
+            android:layout_margin="10dp"
+            android:layout_width="200dp"
+            android:scaleType="fitCenter"
+            android:maxHeight="100dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/boilermake" />
 
         <TextView
             android:id="@+id/navigation_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
             android:textStyle="bold"
+            android:textColor="@color/orange"
+            android:paddingTop="5dp"
+            android:text="David"
+            android:layout_centerHorizontal="true"
+            android:textSize="24sp"
             android:textAppearance="?android:textAppearanceMedium"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/navigation_photo"
+            android:layout_below="@id/navigation_photo"
             />
-
     </RelativeLayout>
 
     <ListView xmlns:android="http://schemas.android.com/apk/res/android"

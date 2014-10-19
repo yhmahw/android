@@ -1,22 +1,23 @@
 package me.gethelloworld.android.youhadmeathelloworld;
 
 import android.app.ListActivity;
-import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.*;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
-import me.gethelloworld.android.youhadmeathelloworld.R;
 import me.gethelloworld.android.youhadmeathelloworld.adapters.ChatListAdapter;
 import me.gethelloworld.android.youhadmeathelloworld.auth.AuthenticationManager;
 import me.gethelloworld.android.youhadmeathelloworld.data.Chat;
@@ -45,7 +46,7 @@ public class ChatActivity extends ListActivity {
         ref = new Firebase(FIREBASE_URL).child("chat").child(createChildIdFromUsers(getIntent().getStringExtra("match_user")));
 
         // Setup our input methods. Enter key on the keyboard or pushing the send button
-        EditText inputText = (EditText)findViewById(R.id.messageInput);
+        EditText inputText = (EditText) findViewById(R.id.messageInput);
         inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
@@ -68,7 +69,7 @@ public class ChatActivity extends ListActivity {
     private String createChildIdFromUsers(String match_user) {
         ArrayList<String> arr = new ArrayList<String>(2);
         arr.add(match_user);
-        arr.add( username );
+        arr.add(username);
         Collections.sort(arr);
 
 
@@ -98,7 +99,7 @@ public class ChatActivity extends ListActivity {
         connectedListener = ref.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean connected = (Boolean)dataSnapshot.getValue();
+                boolean connected = (Boolean) dataSnapshot.getValue();
                 if (connected) {
                     Toast.makeText(ChatActivity.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
                 } else {
@@ -125,7 +126,7 @@ public class ChatActivity extends ListActivity {
     }
 
     private void sendMessage() {
-        EditText inputText = (EditText)findViewById(R.id.messageInput);
+        EditText inputText = (EditText) findViewById(R.id.messageInput);
         String input = inputText.getText().toString();
         if (!input.equals("")) {
             // Create our 'model', a Chat object

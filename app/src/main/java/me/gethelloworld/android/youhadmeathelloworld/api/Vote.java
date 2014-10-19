@@ -8,7 +8,7 @@ public class Vote {
     private String voted;
     private boolean yes;
 
-    public Vote(String hackathon, String voted, boolean yes){
+    public Vote(String hackathon, String voted, boolean yes) {
         this.hackathon = hackathon;
         this.voted = voted;
         this.yes = yes;

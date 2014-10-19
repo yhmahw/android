@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
-import me.gethelloworld.android.youhadmeathelloworld.api.HelloAPI;
 import me.gethelloworld.android.youhadmeathelloworld.api.MatchesCollections;
 import me.gethelloworld.android.youhadmeathelloworld.auth.AuthenticationManager;
 import me.gethelloworld.android.youhadmeathelloworld.controller.MatchesManager;

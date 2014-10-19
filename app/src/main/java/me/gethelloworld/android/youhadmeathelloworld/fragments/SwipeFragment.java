@@ -1,7 +1,6 @@
 package me.gethelloworld.android.youhadmeathelloworld.fragments;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,29 +8,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
+import android.widget.IconButton;
 import android.widget.TextView;
 
-import com.andtinder.view.CardContainer;
 import com.loopj.android.image.SmartImageView;
-import android.widget.IconButton;
-
-
-import org.apache.http.auth.AUTH;
 
 import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardExpand;
-import it.gmariotti.cardslib.library.internal.CardHeader;
-import it.gmariotti.cardslib.library.internal.CardThumbnail;
-import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
 import it.gmariotti.cardslib.library.view.CardView;
-import me.gethelloworld.android.youhadmeathelloworld.MainActivity;
 import me.gethelloworld.android.youhadmeathelloworld.R;
 import me.gethelloworld.android.youhadmeathelloworld.RootFragmentInteractionListener;
 import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
 import me.gethelloworld.android.youhadmeathelloworld.api.GitHubUser;
-import me.gethelloworld.android.youhadmeathelloworld.api.Hackathon;
 import me.gethelloworld.android.youhadmeathelloworld.api.Vote;
 import me.gethelloworld.android.youhadmeathelloworld.auth.AuthenticationManager;
 import me.gethelloworld.android.youhadmeathelloworld.data.HackathonDataManager;
@@ -41,12 +28,13 @@ import retrofit.client.Response;
 
 public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
 
-    private RootFragmentInteractionListener  mListener;
+    private RootFragmentInteractionListener mListener;
     public CardView cardView;
     IconButton accept;
     IconButton reject;
 
-    public SwipeFragment() {}
+    public SwipeFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -120,7 +108,7 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (RootFragmentInteractionListener ) activity;
+            mListener = (RootFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -165,8 +153,8 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
         cardView = (CardView) getActivity().findViewById(R.id.user_card);
         Card card = new Card(getActivity());
         card.setSwipeable(true);
-        ((SmartImageView)cardView.findViewById(R.id.card_thumbnail_image)).setImageUrl(user.getAvatar_url());
-        ((TextView)cardView.findViewById(R.id.card_main_inner_simple_title)).setText(user.getName());
+        ((SmartImageView) cardView.findViewById(R.id.card_thumbnail_image)).setImageUrl(user.getAvatar_url());
+        ((TextView) cardView.findViewById(R.id.card_main_inner_simple_title)).setText(user.getName());
         card.setOnExpandAnimatorEndListener(new Card.OnExpandAnimatorEndListener() {
             @Override
             public void onExpandEnd(Card card) {
@@ -186,12 +174,12 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
     }
 
     @Override
-    public void onDetach(){
+    public void onDetach() {
         super.onDetach();
         mListener = null;
     }
 
-    public void getNextUser(){
+    public void getNextUser() {
         //select a new user
         //currently dummy data, how do i get the next user?
         GitHubUser newUser = new GitHubUser();

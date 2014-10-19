@@ -1,7 +1,6 @@
 package me.gethelloworld.android.youhadmeathelloworld;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +11,9 @@ import java.util.List;
 public class NavigationDrawerListItem {
 
     private static List<NavigationDrawerListItem> ITEMS;
+
     public static List<NavigationDrawerListItem> getItems() {
-        if(ITEMS == null) {
+        if (ITEMS == null) {
             ITEMS = new ArrayList<NavigationDrawerListItem>();
             ITEMS.add(new NavigationDrawerListItem(HackathonsActivity.class, "Change Hackathon"));
             ITEMS.add(new NavigationDrawerListItem(ProfileActivity.class, "View Profile"));

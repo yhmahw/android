@@ -34,5 +34,5 @@ public interface HelloAPI {
     void getMatchesForUser(@Path("name") String username, @Path("hackname") String hackathonName, @Query("accessToken") String accessToken, Callback<MatchesCollections> matchesCollectionsCallback);
 
     @PUT("/hackathon/{name}/join/{userId}")
-    void joinHackathon(@Path("name") String hackName, @Path("userId") String userId, Callback<String> stringCallback);
+    void joinHackathon(@Path("name") String hackName, @Path("userId") String userId, Callback<Void> stringCallback);
 }

@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by david on 10/18/14.
  */
-public class Location implements Parcelable{
+public class Location implements Parcelable {
     String place;
     String address;
     String city;

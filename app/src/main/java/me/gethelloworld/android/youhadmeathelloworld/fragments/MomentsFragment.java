@@ -18,7 +18,6 @@ import me.gethelloworld.android.youhadmeathelloworld.RootFragmentInteractionList
  * to handle interaction events.
  * Use the {@link MomentsFragment#newInstance} factory method to
  * create an instance of this fragment.
- *
  */
 public class MomentsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -30,7 +29,7 @@ public class MomentsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private RootFragmentInteractionListener  mListener;
+    private RootFragmentInteractionListener mListener;
 
     /**
      * Use this factory method to create a new instance of
@@ -49,6 +48,7 @@ public class MomentsFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     public MomentsFragment() {
         // Required empty public constructor
     }
@@ -80,7 +80,7 @@ public class MomentsFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (RootFragmentInteractionListener ) activity;
+            mListener = (RootFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");

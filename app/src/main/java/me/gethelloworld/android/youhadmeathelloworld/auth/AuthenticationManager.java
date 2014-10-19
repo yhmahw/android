@@ -10,7 +10,7 @@ public class AuthenticationManager {
     private static String authToken;
 
     public static String getAuthToken(Context context) {
-        if(authToken == null) {
+        if (authToken == null) {
             authToken = context.getSharedPreferences("auth", Context.MODE_PRIVATE).getString("token", null);
         }
         return authToken;
@@ -25,7 +25,7 @@ public class AuthenticationManager {
     private static String username;
 
     public static String getUsername(Context context) {
-        if(username == null) {
+        if (username == null) {
             username = context.getSharedPreferences("auth", Context.MODE_PRIVATE).getString("name", null);
         }
         return username;

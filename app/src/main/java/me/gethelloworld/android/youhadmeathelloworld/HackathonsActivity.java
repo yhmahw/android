@@ -13,7 +13,6 @@ import java.util.List;
 import me.gethelloworld.android.youhadmeathelloworld.adapters.HackathonsListAdapter;
 import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
 import me.gethelloworld.android.youhadmeathelloworld.api.Hackathon;
-import me.gethelloworld.android.youhadmeathelloworld.api.HelloAPI;
 import me.gethelloworld.android.youhadmeathelloworld.auth.AuthenticationManager;
 import me.gethelloworld.android.youhadmeathelloworld.data.HackathonDataManager;
 import retrofit.Callback;
@@ -34,7 +33,7 @@ public class HackathonsActivity extends ListActivity implements Callback<List<Ha
 
     @Override
     public void success(List<Hackathon> hackathons, Response response) {
-        if( hackathons.size() == 0 ) {
+        if (hackathons.size() == 0) {
             Toast.makeText(this, "There are currently no hackathons", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -47,16 +46,16 @@ public class HackathonsActivity extends ListActivity implements Callback<List<Ha
 
         HackathonDataManager.setCurrentHackathon(this, hackathon);
 
-        APIManager.getAPI(this).joinHackathon(hackathon.getName(), AuthenticationManager.getUsername(this), new Callback<String>() {
+        APIManager.getAPI(this).joinHackathon(hackathon.getName(), AuthenticationManager.getUsername(this), new Callback<Void>() {
             @Override
-            public void success(String s, Response response) {
+            public void success(Void s, Response response) {
                 startActivity(new Intent(HackathonsActivity.this, MainActivity.class));
                 finish();
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Log.d("Hackathon Join", "Error");
+                Log.d("Hackathon Join", "Error " + error.getLocalizedMessage());
             }
         });
 

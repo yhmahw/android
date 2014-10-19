@@ -33,7 +33,7 @@ public class Hackathon implements Parcelable {
     }
 
     @Override
-    public int describeContents(){
+    public int describeContents() {
         return 682724624;
     }
 
@@ -57,7 +57,6 @@ public class Hackathon implements Parcelable {
             return new Hackathon[size];
         }
     };
-
 
 
     public String getName() {

@@ -12,6 +12,8 @@ public class MatchesCollections {
 
     private List<String> rejects;
 
+    private List<String> matches;
+
     public List<String> getPotential() {
         return potential;
     }
@@ -34,5 +36,13 @@ public class MatchesCollections {
 
     public void setRejects(List<String> rejects) {
         this.rejects = rejects;
+    }
+
+    public List<String> getMatches() {
+        return matches;
+    }
+
+    public void setMatches(List<String> matches) {
+        this.matches = matches;
     }
 }

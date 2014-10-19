@@ -4,9 +4,7 @@ package me.gethelloworld.android.youhadmeathelloworld.controller;
 import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import me.gethelloworld.android.youhadmeathelloworld.fragments.MatchesFragment;
 import me.gethelloworld.android.youhadmeathelloworld.fragments.MomentsFragment;
@@ -20,7 +18,7 @@ public class MainFragmentsStore {
 
 
     private static List<FragmentEntry> getFRAGMENTS() {
-        if(FRAGMENTS.isEmpty()) {
+        if (FRAGMENTS.isEmpty()) {
             FRAGMENTS.add(new FragmentEntry("Meet People", new SwipeFragment()));
             FRAGMENTS.add(new FragmentEntry("My Matches", new MatchesFragment()));
             FRAGMENTS.add(new FragmentEntry("Hack Moments", new MomentsFragment()));

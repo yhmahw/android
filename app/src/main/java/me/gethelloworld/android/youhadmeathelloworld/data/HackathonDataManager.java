@@ -2,8 +2,6 @@ package me.gethelloworld.android.youhadmeathelloworld.data;
 
 import android.content.Context;
 
-import java.security.PrivilegedAction;
-
 import me.gethelloworld.android.youhadmeathelloworld.api.Hackathon;
 
 /**
@@ -19,7 +17,7 @@ public class HackathonDataManager {
     }
 
     public static String getCurrentHackathonId(Context context) {
-        if(currentHackathon == null) {
+        if (currentHackathon == null) {
             currentHackathon = context.getSharedPreferences("hackathons", Context.MODE_PRIVATE).getString("current", null);
         }
         return currentHackathon;

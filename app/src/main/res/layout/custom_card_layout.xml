@@ -7,7 +7,6 @@
         <com.loopj.android.image.SmartImageView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/card_thumbnail_image"
-        android:src="@drawable/heart"
         style="@style/card_thumbnail_image"/>
 
         <!-- Use same ID to use built-in features -->

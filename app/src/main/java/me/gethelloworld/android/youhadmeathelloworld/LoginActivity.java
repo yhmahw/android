@@ -2,36 +2,20 @@ package me.gethelloworld.android.youhadmeathelloworld;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.nio.channels.AsynchronousCloseException;
-import java.util.UUID;
 
 import io.oauth.OAuth;
 import io.oauth.OAuthCallback;
 import io.oauth.OAuthData;
-import lombok.core.Main;
 import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
-import me.gethelloworld.android.youhadmeathelloworld.api.Hackathon;
 import me.gethelloworld.android.youhadmeathelloworld.api.LoginData;
 import me.gethelloworld.android.youhadmeathelloworld.api.UserData;
 import me.gethelloworld.android.youhadmeathelloworld.auth.AuthenticationManager;
@@ -60,14 +44,14 @@ public class LoginActivity extends Activity implements OAuthCallback, Callback<U
 
         String token = AuthenticationManager.getAuthToken(this);
         Log.d("OAUTH", "Stored token: " + token);
-        if( token != null ) {
+        if (token != null) {
             LoginData loginData = new LoginData(token);
             APIManager.getAPI(this).login(loginData, this);
         }
     }
 
     private void openApp() {
-        if(HackathonDataManager.getCurrentHackathonId(this) == null) {
+        if (HackathonDataManager.getCurrentHackathonId(this) == null) {
             startActivity(new Intent(LoginActivity.this, HackathonsActivity.class));
         } else {
             startActivity(new Intent(LoginActivity.this, PreparingMatchesActivity.class));
@@ -105,7 +89,7 @@ public class LoginActivity extends Activity implements OAuthCallback, Callback<U
 
     @Override
     public void success(UserData userData, Response response) {
-        if(response.getStatus() == 201) {
+        if (response.getStatus() == 201) {
             Toast.makeText(this, "Welcome to Hello!", Toast.LENGTH_SHORT).show();
         } else if (response.getStatus() == 202) {
             Toast.makeText(this, "Welcome back!", Toast.LENGTH_SHORT).show();

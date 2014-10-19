@@ -2,7 +2,6 @@ package me.gethelloworld.android.youhadmeathelloworld.adapters;
 
 import android.content.Context;
 import android.database.DataSetObserver;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

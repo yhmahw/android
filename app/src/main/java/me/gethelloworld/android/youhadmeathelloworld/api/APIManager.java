@@ -2,7 +2,6 @@ package me.gethelloworld.android.youhadmeathelloworld.api;
 
 import android.content.Context;
 
-import io.oauth.OAuth;
 import me.gethelloworld.android.youhadmeathelloworld.auth.AuthenticationManager;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
@@ -16,7 +15,7 @@ public class APIManager {
     private static GitHubAPI GH_INSTANCE;
 
     public static HelloAPI getAPI(final Context context) {
-        if(INSTANCE == null) {
+        if (INSTANCE == null) {
             RestAdapter restAdapter = new RestAdapter.Builder()
                     .setEndpoint("https://api-yhmahw.herokuapp.com")
                     .setRequestInterceptor(new RequestInterceptor() {
@@ -34,7 +33,7 @@ public class APIManager {
 
 
     public static GitHubAPI getGitHubApi(final Context context) {
-        if(GH_INSTANCE == null) {
+        if (GH_INSTANCE == null) {
             RestAdapter restAdapter = new RestAdapter.Builder()
                     .setEndpoint("https://api.github.com")
                     .setRequestInterceptor(new RequestInterceptor() {

@@ -1,16 +1,16 @@
 package me.gethelloworld.android.youhadmeathelloworld;
 
 
-import android.app.Activity;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.loopj.android.image.SmartImageView;
 
@@ -89,7 +88,7 @@ public class NavigationDrawerFragment extends Fragment implements Callback<GitHu
     }
 
     @Override
-    public void onActivityCreated (Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // Indicate that this fragment would like to influence the set of actions in the action bar.
         setHasOptionsMenu(true);
@@ -97,7 +96,7 @@ public class NavigationDrawerFragment extends Fragment implements Callback<GitHu
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 
         mDrawerListView = (ListView) v.findViewById(R.id.navigation_list);
@@ -110,8 +109,8 @@ public class NavigationDrawerFragment extends Fragment implements Callback<GitHu
         });
         mDrawerListView.setAdapter(new ArrayAdapter<NavigationDrawerListItem>(
                 getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
+                R.layout.navigation_listitem,
+                R.id.nav_text,
                 NavigationDrawerListItem.getItems()) {
 
             @Override
@@ -299,7 +298,7 @@ public class NavigationDrawerFragment extends Fragment implements Callback<GitHu
 
     @Override
     public void success(GitHubUser gitHubUser, Response response) {
-        ((SmartImageView)getView().findViewById(R.id.navigation_photo)).setImageUrl(gitHubUser.getAvatar_url());
+        ((SmartImageView) getView().findViewById(R.id.navigation_photo)).setImageUrl(gitHubUser.getAvatar_url());
         ((TextView) getView().findViewById(R.id.navigation_name)).setText(gitHubUser.getName());
     }
 
