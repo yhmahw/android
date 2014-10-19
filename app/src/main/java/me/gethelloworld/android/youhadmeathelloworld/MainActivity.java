@@ -3,9 +3,11 @@ package me.gethelloworld.android.youhadmeathelloworld;
 import android.app.ActionBar;
 import android.app.Application;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -23,11 +25,19 @@ import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify;
 
 import me.gethelloworld.android.youhadmeathelloworld.adapters.MainViewPagerAdapter;
+import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
+import me.gethelloworld.android.youhadmeathelloworld.api.UserData;
+import me.gethelloworld.android.youhadmeathelloworld.auth.AuthenticationManager;
 import me.gethelloworld.android.youhadmeathelloworld.controller.MainFragmentsStore;
 import me.gethelloworld.android.youhadmeathelloworld.listeners.OnPageToFragmentListener;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 import com.gimbal.proximity.Proximity;
 import com.gimbal.proximity.ProximityListener;
+
+import org.json.JSONObject;
 
 import java.util.Date;
 
@@ -65,6 +75,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
                     "15b9185423d8d4d2bb6a1a9bfac6e7f83c200c0a7ec92eacd17c223f6408e816",
                     "80d4f0eaabee200e58121eda35150e75e4bfe9a05c9a289e51c1f40a0a06f75c");
             Proximity.startService(this);
+            lastRecordedDate = new Date();
         }
 
 
@@ -234,12 +245,75 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
     }
 
     @Override
-    public void receivedSighting(Visit visit, Date date, Integer integer) {
-       Log.d("tags", "Received Sighting Date: " + date);
+    public void receivedSighting(final Visit visit, final Date date, Integer integer) {
+        long timePassed = date.getTime() - lastRecordedDate.getTime();
+        timePassed = timePassed / 100;
+        if ( timePassed > 15 ) {
+            Log.d("tags", "Received Sighting Date: " + date + " & timePassed: " + timePassed);
+            Handler h = new Handler(this.getMainLooper());
+            h.post(new Runnable() {
+                @Override
+                public void run() {
+                    APIManager.getAPI(getApplicationContext()).gimbalEnter(visit.getTransmitter().getName(), AuthenticationManager.getUsername(getApplicationContext()), new Callback<String>() {
+                        @Override
+                        public void success(String s, Response response) {
+                            Log.d("debug", "Success");
+                            APIManager.getAPI(getApplicationContext()).gimbal(visit.getTransmitter().getName(), new Callback<String>() {
+                                @Override
+                                public void success(String s, Response response) {
+                                    if ( response == null || response.getBody().toString().isEmpty() ){
+                                        return;
+                                    }
+                                    UserData userData = new UserData();
+                                    userData.setUserId(response.getBody().toString());
+                                }
+
+                                @Override
+                                public void failure(RetrofitError error) {
+
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Log.d("debug", "Failure");
+                        }
+                    });
+                    lastRecordedDate = date;
+                }
+            });
+
+        } else {
+            Log.d("tags", "timePassed: " + timePassed);
+            Handler h = new Handler(this.getMainLooper());
+            h.post(new Runnable() {
+                @Override
+                public void run() {
+                    lastRecordedDate = date;
+                }
+            });
+        }
     }
 
     @Override
-    public void didDepart(Visit visit) {
+    public void didDepart(final Visit visit) {
+        Handler h = new Handler(this.getMainLooper());
+        h.post(new Runnable() {
+            @Override
+            public void run() {
+                APIManager.getAPI(getApplicationContext()).gimbalExit(visit.getTransmitter().getName(), AuthenticationManager.getUsername(getApplicationContext()), new Callback<String>() {
+                    @Override
+                    public void success(String s, Response response) {
+                        Log.d("debug", "Success");
+                    }
 
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d("debug", "Failure");
+                    }
+                });
+            }
+        });
     }
 }

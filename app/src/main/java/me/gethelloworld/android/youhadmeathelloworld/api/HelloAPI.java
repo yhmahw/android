@@ -35,4 +35,13 @@ public interface HelloAPI {
 
     @PUT("/hackathon/{name}/join/{userId}")
     void joinHackathon(@Path("name") String hackName, @Path("userId") String userId, Callback<Void> stringCallback);
+
+    @POST("/gimbal/{gimbalId}/enter")
+    void gimbalEnter(@Path("gimbalId") String gimbalId, @Body String userId, Callback<String> callback);
+
+    @POST("/gimbal/{gimbalId}/exit")
+    void gimbalExit(@Path("gimbalId") String gimbalId, @Body String userId, Callback<String> callback);
+
+    @GET("/gimbal/{gimbalId}")
+    void gimbal(@Path("gimbalId") String gimbalId, Callback<String> callback);
 }
