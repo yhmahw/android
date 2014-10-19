@@ -63,6 +63,8 @@ public class EditProfileActivity extends Activity implements Callback<GitHubUser
             @Override
             public void success(Void aVoid, Response response) {
                 Log.d("User", "Updated successfully");
+
+                onBackPressed();
             }
 
             @Override
