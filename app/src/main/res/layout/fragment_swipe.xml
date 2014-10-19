@@ -7,9 +7,9 @@
     tools:context="me.gethelloworld.android.youhadmeathelloworld.fragments.SwipeFragment">
 
     <it.gmariotti.cardslib.library.view.CardView
-        android:id="@+id/tylor_card"
+        android:id="@+id/user_card"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
@@ -17,8 +17,8 @@
         android:layout_marginTop="12dp"/>
 
     <LinearLayout
-        android:paddingTop="275dp"
-        android:layout_below="@id/tylor_card"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/user_card"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
