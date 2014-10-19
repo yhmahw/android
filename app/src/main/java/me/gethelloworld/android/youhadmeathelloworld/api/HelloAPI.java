@@ -25,4 +25,7 @@ public interface HelloAPI {
     //TODO: Figure out if I even need to use this.
     @PUT("/hackathon/{name}/join/{userId}")
     void joinHackathon(@Path("name") String name, @Path("userId") String userId);
+
+    @PUT("/user/{userId}/vote")
+    void sendVote(@Path("userId") String userId, @Body Vote vote, Callback<String> callback);
 }

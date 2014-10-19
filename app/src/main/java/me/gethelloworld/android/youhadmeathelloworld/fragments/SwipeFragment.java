@@ -1,6 +1,7 @@
 package me.gethelloworld.android.youhadmeathelloworld.fragments;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,12 +9,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import com.andtinder.view.CardContainer;
 import com.loopj.android.image.SmartImageView;
 import android.widget.IconButton;
 
+
+import org.apache.http.auth.AUTH;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardExpand;
@@ -26,7 +31,10 @@ import me.gethelloworld.android.youhadmeathelloworld.R;
 import me.gethelloworld.android.youhadmeathelloworld.RootFragmentInteractionListener;
 import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
 import me.gethelloworld.android.youhadmeathelloworld.api.GitHubUser;
-import me.gethelloworld.android.youhadmeathelloworld.views.CustomExpandCard;
+import me.gethelloworld.android.youhadmeathelloworld.api.Hackathon;
+import me.gethelloworld.android.youhadmeathelloworld.api.Vote;
+import me.gethelloworld.android.youhadmeathelloworld.auth.AuthenticationManager;
+import me.gethelloworld.android.youhadmeathelloworld.data.HackathonDataManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -49,6 +57,46 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
         View v = inflater.inflate(R.layout.fragment_swipe, container, false);
         accept = (IconButton) v.findViewById(R.id.button_accept);
         reject = (IconButton) v.findViewById(R.id.button_reject);
+        accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String hackathon = HackathonDataManager.getCurrentHackathonId(getActivity());
+                String userId = AuthenticationManager.getUsername(getActivity());
+                Vote vote = new Vote(hackathon, userId, true);
+                APIManager.getAPI(getActivity()).sendVote(userId, vote, new Callback<String>() {
+                    @Override
+                    public void success(String s, Response response) {
+                        Log.d("debug", "Success");
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d("debug", "Failure");
+                    }
+                });
+                getNextUser();
+            }
+        });
+        reject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String hackathon = HackathonDataManager.getCurrentHackathonId(getActivity());
+                String userId = AuthenticationManager.getUsername(getActivity());
+                Vote vote = new Vote(hackathon, userId, false);
+                APIManager.getAPI(getActivity()).sendVote(userId, vote, new Callback<String>() {
+                    @Override
+                    public void success(String s, Response response) {
+                        Log.d("debug", "Success");
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d("debug", "Failure");
+                    }
+                });
+                getNextUser();
+            }
+        });
         return v;
     }
 
@@ -85,25 +133,39 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
 
     }
 
+//    public void setUpCardView(){
+//        GridView gridview = (GridView) getActivity().findViewById(R.id.gridview);
+//        gridview.setAdapter(new BaseAdapter() {
+//            @Override
+//            public int getCount() {
+//                return 7;
+//            }
+//
+//            @Override
+//            public Object getItem(int position) {
+//                return null;
+//            }
+//
+//            @Override
+//            public long getItemId(int position) {
+//                return position;
+//            }
+//
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//                TextView tv = (TextView) getActivity().findViewById(R.id.tech_view);
+//                return tv;
+//            }
+//        });
+//    }
+
     private void createCardForUser(GitHubUser user) {
-
         CardHeader cardHeader = new CardHeader(getActivity());
-
-        CardView cardView = (CardView) getActivity().findViewById(R.id.tylor_card);
-
+        CardView cardView = (CardView) getActivity().findViewById(R.id.user_card);
         Card card = new Card(getActivity());
-
-        CardExpand cardExpand = new CustomExpandCard(getActivity());
-
         card.setSwipeable(true);
-
         ((SmartImageView)cardView.findViewById(R.id.card_thumbnail_image)).setImageUrl(user.getAvatar_url());
-        ((TextView)cardView.findViewById(R.id.card_main_inner_simple_title)).setText(user.getName() + " (" + user.getLogin() + ")");
-
-        cardHeader.setButtonExpandVisible(true);
-        card.addCardHeader(cardHeader);
-        cardExpand.setTitle("Tylor Garrett's Info");
-        card.addCardExpand(cardExpand);
+        ((TextView)cardView.findViewById(R.id.card_main_inner_simple_title)).setText(user.getName());
         card.setOnExpandAnimatorEndListener(new Card.OnExpandAnimatorEndListener() {
             @Override
             public void onExpandEnd(Card card) {
@@ -131,11 +193,14 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
     public Card createCard(){
         CardHeader cardHeader = new CardHeader(getActivity());
         Card card = new Card(getActivity());
-        CustomExpandCard customExpandCard = new CustomExpandCard(getActivity());
         card.setSwipeable(true);
         cardHeader.setButtonExpandVisible(true);
         card.addCardHeader(cardHeader);
         return card;
+    }
+
+    public void getNextUser(){
+
     }
 
 
