@@ -26,7 +26,6 @@
             android:textStyle="bold"
             android:textColor="@color/orange"
             android:paddingTop="5dp"
-            android:text="David Tschida"
             android:layout_centerHorizontal="true"
             android:textSize="24sp"
             android:textAppearance="?android:textAppearanceMedium"

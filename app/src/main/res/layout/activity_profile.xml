@@ -29,7 +29,6 @@
             android:textStyle="bold"
             android:textColor="@color/orange"
             android:paddingTop="5dp"
-            android:text="David Tschida"
             android:layout_centerHorizontal="true"
             android:textSize="24sp"
             android:textAppearance="?android:textAppearanceMedium"
@@ -58,7 +57,8 @@
             <TextView
                 android:id="@+id/show_advert"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textColor="@color/green"/>
 
             <TextView
                 android:text="languages"
@@ -71,7 +71,8 @@
             <TextView
                 android:id="@+id/show_languages"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textColor="@color/green"/>\
 
             <TextView
                 android:text="platforms"
@@ -84,7 +85,8 @@
             <TextView
                 android:id="@+id/show_platforms"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textColor="@color/green"/>
 
         </LinearLayout>
     </RelativeLayout>

@@ -21,8 +21,7 @@
             android:scaleType="fitCenter"
             android:maxHeight="100dp"
             android:layout_height="200dp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/boilermake" />
+            android:layout_centerHorizontal="true"/>
 
         <TextView
             android:id="@+id/navigation_name"
@@ -31,7 +30,6 @@
             android:textStyle="bold"
             android:textColor="@color/orange"
             android:paddingTop="5dp"
-            android:text="David"
             android:layout_centerHorizontal="true"
             android:textSize="24sp"
             android:textAppearance="?android:textAppearanceMedium"
