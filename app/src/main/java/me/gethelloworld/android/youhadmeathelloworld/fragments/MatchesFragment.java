@@ -69,7 +69,7 @@ public class MatchesFragment extends ListFragment implements OnPageToFragmentLis
     public void onPageToFragment() {
         Log.d("Page", "Matches selected");
 
-        setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, MatchesManager.getMatchesCollection().getInterests())); //TODO: This is WRONG. I need MATCHES not swipe yesses.
+        setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, MatchesManager.getMatchesCollection().getMatches()));
     }
 
     @Override

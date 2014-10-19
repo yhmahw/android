@@ -118,6 +118,7 @@ public class LoginActivity extends Activity implements OAuthCallback, Callback<U
             e.printStackTrace();
         }
 
-        oauth.popup("github", data, this);
+        if(!isFinishing())
+            oauth.popup("github", data, this);
     }
 }

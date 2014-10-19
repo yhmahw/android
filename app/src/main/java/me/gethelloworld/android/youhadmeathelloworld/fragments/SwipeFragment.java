@@ -13,20 +13,24 @@ import android.widget.TextView;
 
 import com.loopj.android.image.SmartImageView;
 
+import java.util.Random;
+
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.view.CardView;
 import me.gethelloworld.android.youhadmeathelloworld.R;
 import me.gethelloworld.android.youhadmeathelloworld.RootFragmentInteractionListener;
 import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
 import me.gethelloworld.android.youhadmeathelloworld.api.GitHubUser;
+import me.gethelloworld.android.youhadmeathelloworld.api.UserData;
 import me.gethelloworld.android.youhadmeathelloworld.api.Vote;
 import me.gethelloworld.android.youhadmeathelloworld.auth.AuthenticationManager;
+import me.gethelloworld.android.youhadmeathelloworld.controller.MatchesManager;
 import me.gethelloworld.android.youhadmeathelloworld.data.HackathonDataManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
+public class SwipeFragment extends Fragment {
 
     private RootFragmentInteractionListener mListener;
     public CardView cardView;
@@ -55,12 +59,12 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
                 APIManager.getAPI(getActivity()).sendVote(userId, vote, new Callback<String>() {
                     @Override
                     public void success(String s, Response response) {
-                        Log.d("debug", "Success");
+                        Log.d("vote", "Success");
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Log.d("debug", "Failure");
+                        Log.d("vote", "Failure");
                     }
                 });
                 getNextUser();
@@ -75,12 +79,12 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
                 APIManager.getAPI(getActivity()).sendVote(userId, vote, new Callback<String>() {
                     @Override
                     public void success(String s, Response response) {
-                        Log.d("debug", "Success");
+                        Log.d("vote", "Success");
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Log.d("debug", "Failure");
+                        Log.d("vote", "Failure");
                     }
                 });
                 getNextUser();
@@ -93,8 +97,7 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-        APIManager.getGitHubApi(getActivity()).getUser(this);
+        getNextUser();
 
     }
 
@@ -115,12 +118,14 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
         }
     }
 
-    @Override
-    public void success(GitHubUser gitHubUser, Response response) {
+    public void displayCard(UserData userData, GitHubUser gitHubUser) {
 
-        Card card = createCardForUser(gitHubUser); //Change this to enter the user ID of a match
-        cardView.setCard(card);
+        Card card = createCardForUser(gitHubUser, userData); //Change this to enter the user ID of a match
 
+        if(cardView.getCard() == null)
+            cardView.setCard(card);
+        else
+            cardView.replaceCard(card);
     }
 
 //    public void setUpCardView(){
@@ -149,12 +154,19 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
 //        });
 //    }
 
-    private Card createCardForUser(GitHubUser user) {
+    private Card createCardForUser(GitHubUser user, UserData userData) {
+
+        Log.d("createCard", user.getLogin() + " " + userData.getUserId());
+
         cardView = (CardView) getActivity().findViewById(R.id.user_card);
         Card card = new Card(getActivity());
+
         card.setSwipeable(true);
+
         ((SmartImageView) cardView.findViewById(R.id.card_thumbnail_image)).setImageUrl(user.getAvatar_url());
         ((TextView) cardView.findViewById(R.id.card_main_inner_simple_title)).setText(user.getName());
+        ((TextView) cardView.findViewById(R.id.card_profile_description)).setText(userData.getAdvert());
+
         card.setOnExpandAnimatorEndListener(new Card.OnExpandAnimatorEndListener() {
             @Override
             public void onExpandEnd(Card card) {
@@ -165,31 +177,42 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
     }
 
     @Override
-    public void failure(RetrofitError error) {
-        //Error
-    }
-
-    public interface OnFragmentInteractionListener {
-        public void onFragmentInteraction(Uri uri);
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
 
     public void getNextUser() {
-        //select a new user
-        //currently dummy data, how do i get the next user?
-        GitHubUser newUser = new GitHubUser();
-        newUser.setLogin("mhoc");
-        newUser.setName("Steve Jobs");
-        newUser.setAvatar_url("https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQTsgr8IQAvo0uSwwP1tdL2XIAIFxR0rAI9Y0qJip5mBzHvRpxu");
-        //populate the card data
-        Card newCard = createCardForUser(newUser);
-        //display the card
-        cardView.replaceCard(newCard);
+        Random rand = new Random();
+
+        String userId = MatchesManager.getMatchesCollection().getPotential().get( rand.nextInt(MatchesManager.getMatchesCollection().getPotential().size()) );
+        Log.d("NextUser", "Got the next user : " + userId);
+        APIManager.getGitHubApi(getActivity()).getUser(userId, new Callback<GitHubUser>() {
+            @Override
+            public void success(final GitHubUser gitHubUser, Response response) {
+                Log.d("GitHub", "Revieved next from GH");
+                APIManager.getAPI(getActivity()).getUserData(gitHubUser.getLogin(), new Callback<UserData>() {
+                    @Override
+                    public void success(UserData userData, Response response) {
+                        Log.e("GitHub", "got next");
+
+                        displayCard(userData, gitHubUser);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.e("API", "Error getting next");
+
+                    }
+                });
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e("GitHub", "Error getting next" + error.getLocalizedMessage());
+            }
+        });
+
     }
 
 

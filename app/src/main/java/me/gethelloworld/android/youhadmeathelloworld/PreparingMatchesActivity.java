@@ -55,6 +55,7 @@ public class PreparingMatchesActivity extends Activity implements Callback<Match
 
     @Override
     public void success(MatchesCollections matchesCollections, Response response) {
+        Log.d("Prep", "Got object : " + matchesCollections.getPotential().size());
         MatchesManager.setMatchesCollection(matchesCollections);
 
         startActivity(new Intent(this, MainActivity.class));

@@ -12,6 +12,6 @@ public interface GitHubAPI {
     @GET("/user")
     void getUser(Callback<GitHubUser> callback);
 
-    @GET("/user/{username}")
+    @GET("/users/{username}")
     void getUser(@Path("username") String username, Callback<GitHubUser> callback);
 }
