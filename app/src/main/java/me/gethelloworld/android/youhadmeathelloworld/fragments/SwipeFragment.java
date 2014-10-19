@@ -42,6 +42,7 @@ import retrofit.client.Response;
 public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
 
     private RootFragmentInteractionListener  mListener;
+    public CardView cardView;
     IconButton accept;
     IconButton reject;
 
@@ -129,7 +130,8 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
     @Override
     public void success(GitHubUser gitHubUser, Response response) {
 
-        createCardForUser(gitHubUser); //Change this to enter the user ID of a match
+        Card card = createCardForUser(gitHubUser); //Change this to enter the user ID of a match
+        cardView.setCard(card);
 
     }
 
@@ -159,9 +161,8 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
 //        });
 //    }
 
-    private void createCardForUser(GitHubUser user) {
-        CardHeader cardHeader = new CardHeader(getActivity());
-        CardView cardView = (CardView) getActivity().findViewById(R.id.user_card);
+    private Card createCardForUser(GitHubUser user) {
+        cardView = (CardView) getActivity().findViewById(R.id.user_card);
         Card card = new Card(getActivity());
         card.setSwipeable(true);
         ((SmartImageView)cardView.findViewById(R.id.card_thumbnail_image)).setImageUrl(user.getAvatar_url());
@@ -169,10 +170,10 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
         card.setOnExpandAnimatorEndListener(new Card.OnExpandAnimatorEndListener() {
             @Override
             public void onExpandEnd(Card card) {
-                Log.d("tylor", "the card has expanded");
+                Log.d("debug", "the card has expanded");
             }
         });
-        cardView.setCard(card);
+        return card;
     }
 
     @Override
@@ -190,17 +191,17 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
         mListener = null;
     }
 
-    public Card createCard(){
-        CardHeader cardHeader = new CardHeader(getActivity());
-        Card card = new Card(getActivity());
-        card.setSwipeable(true);
-        cardHeader.setButtonExpandVisible(true);
-        card.addCardHeader(cardHeader);
-        return card;
-    }
-
     public void getNextUser(){
-
+        //select a new user
+        //currently dummy data, how do i get the next user?
+        GitHubUser newUser = new GitHubUser();
+        newUser.setLogin("mhoc");
+        newUser.setName("Steve Jobs");
+        newUser.setAvatar_url("https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQTsgr8IQAvo0uSwwP1tdL2XIAIFxR0rAI9Y0qJip5mBzHvRpxu");
+        //populate the card data
+        Card newCard = createCardForUser(newUser);
+        //display the card
+        cardView.replaceCard(newCard);
     }
 
 

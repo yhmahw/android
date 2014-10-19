@@ -15,7 +15,7 @@
         android:layout_marginRight="30dp"
         card:card_layout_resourceID="@layout/custom_card_layout"
         android:layout_marginTop="12dp"
-        android:layout_above="@+id/actionButtons"/>
+        android:layout_alignParentTop="true"/>
 
     <LinearLayout
         android:id="@+id/actionButtons"
@@ -36,7 +36,6 @@
 
         <IconButton
             android:id="@+id/button_reject"
-
             android:text="{fa-times}"
             android:textSize="100sp"
             android:background="@android:color/transparent"

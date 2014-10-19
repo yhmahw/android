@@ -4,12 +4,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <it.gmariotti.cardslib.library.view.component.CardHeaderView
-        style="@style/card.header_outer_layout"
-        android:id="@+id/card_header_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
         <com.loopj.android.image.SmartImageView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/card_thumbnail_image"
