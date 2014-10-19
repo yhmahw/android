@@ -29,7 +29,8 @@
             android:layout_centerHorizontal="true"
             android:textAppearance="?android:textAppearanceLarge"
             android:textStyle="bold"
-            android:text="You have no matches :("/>
+            android:text="You have no matches :("
+            android:textColor="@color/green"/>
 
     </RelativeLayout>
 

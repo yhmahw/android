@@ -6,7 +6,6 @@
 
     <TextView
         android:id="@+id/tech_view"
-        android:text="Node"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

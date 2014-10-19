@@ -30,7 +30,7 @@
             android:textColor="@color/orange"
             android:paddingTop="5dp"
             android:layout_centerHorizontal="true"
-            android:textSize="24sp"
+            android:textSize="30sp"
             android:textAppearance="?android:textAppearanceMedium"
             android:layout_centerVertical="true"
             android:layout_below="@id/profileImage"
@@ -50,7 +50,7 @@
                 android:text="bio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30dp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/orange"/>
 
@@ -64,7 +64,7 @@
                 android:text="languages"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30dp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/orange"/>
 
@@ -78,7 +78,7 @@
                 android:text="platforms"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30dp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/orange"/>
 
