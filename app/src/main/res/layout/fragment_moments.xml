@@ -1,15 +1,61 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context="me.gethelloworld.android.youhadmeathelloworld.fragments.MomentsFragment"
     android:layout_gravity="center">
 
+
+    <TextView
+        android:text="Moments are shared\nexperiences from the hackathon.\nCheck twitter @yhmahw\nto see your moments live!"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/cameraButton"
+        android:layout_centerVertical="true"
+        android:textColor="@color/green"
+        android:textSize="17sp"
+        android:id="@+id/text"/>
+
+    <TextView
+        android:text="{"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textColor="@color/orange"
+        android:layout_above="@+id/cameraButton"
+        android:textSize="90sp"
+        android:textStyle="bold"
+        android:layout_toLeftOf="@id/text"
+        android:paddingRight="5dp"/>
+
+    <TextView
+        android:text="}"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/text"
+        android:layout_above="@+id/cameraButton"
+        android:textColor="@color/orange"
+        android:textSize="90sp"
+        android:textStyle="bold"
+        android:paddingLeft="5dp"/>
+
     <!-- TODO: Update blank fragment layout -->
+
     <IconButton
         android:id="@+id/cameraButton"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textSize="50sp"
+        android:layout_margin="30dp"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"
+        android:textColor="@color/orange"
         android:text="{fa-camera}" />
 
-</FrameLayout>
+</RelativeLayout>

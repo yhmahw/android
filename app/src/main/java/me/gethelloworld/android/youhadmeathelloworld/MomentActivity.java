@@ -2,7 +2,7 @@ package me.gethelloworld.android.youhadmeathelloworld;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,17 +19,14 @@ import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
-import me.gethelloworld.android.youhadmeathelloworld.api.Hackathon;
-import me.gethelloworld.android.youhadmeathelloworld.auth.AuthenticationManager;
+import me.gethelloworld.android.youhadmeathelloworld.api.ImageData;
+import me.gethelloworld.android.youhadmeathelloworld.api.Tweet;
 import me.gethelloworld.android.youhadmeathelloworld.data.HackathonDataManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -103,7 +100,16 @@ public class MomentActivity extends Activity implements Callback<Void> {
 
                     String message = "Hello from #" + HackathonDataManager
                             .getCurrentHackathonId(MomentActivity.this).replace(" ", "") + " " + url;
+
+
                     APIManager.getAPI(MomentActivity.this).sendTweet(new Tweet(message, url), MomentActivity.this);
+
+                    ImageData id = new ImageData();
+                    id.url = message;
+
+                    APIManager.getAPI(MomentActivity.this).sendImage(id, MomentActivity.this);
+
+
                 }
             }.execute();
 

@@ -1,14 +1,9 @@
 package me.gethelloworld.android.youhadmeathelloworld.api;
 
 
-import android.view.Window;
-
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
-import me.gethelloworld.android.youhadmeathelloworld.MomentActivity;
-import me.gethelloworld.android.youhadmeathelloworld.Tweet;
 import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;
@@ -58,4 +53,7 @@ public interface HelloAPI {
 
     @POST("/tweet")
     void sendTweet(@Body Tweet tweet, Callback<Void> callback);
+
+    @POST("/image")
+    void sendImage(@Body ImageData image, Callback<Void> callback);
 }

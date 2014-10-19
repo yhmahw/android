@@ -5,11 +5,43 @@
     tools:context="me.gethelloworld.android.youhadmeathelloworld.fragments.MatchesFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Refresh"
-        android:id="@+id/refresh"/>
+        android:padding="5dp"
+        android:gravity="center"
+        android:id="@+id/refresh">
+
+
+        <TextView
+            android:text="{"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/orange"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:paddingRight="5dp"/>
+
+        <TextView
+            android:text="Refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/green"
+            android:textSize="17sp"
+            android:id="@+id/text"/>
+
+        <TextView
+            android:text="}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/orange"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:paddingLeft="5dp"/>
+
+    </LinearLayout>
+
+
 
     <ListView
         android:id="@android:id/list"

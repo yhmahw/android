@@ -17,7 +17,6 @@ public class NavigationDrawerListItem {
             ITEMS = new ArrayList<NavigationDrawerListItem>();
             ITEMS.add(new NavigationDrawerListItem(HackathonsActivity.class, "Change Hackathon"));
             ITEMS.add(new NavigationDrawerListItem(ProfileActivity.class, "View Profile"));
-            ITEMS.add(new NavigationDrawerListItem(LogoutActivity.class, "Logout"));
         }
         return ITEMS;
     }

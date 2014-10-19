@@ -157,17 +157,17 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
             // Set an icon in the ActionBar
             menu.findItem(R.id.root_swipe).setIcon(
                     new IconDrawable(this, Iconify.IconValue.fa_group)
-                            .colorRes((currentPosition == 0) ? R.color.green : R.color.orange)
+                            .colorRes((currentPosition == 0) ? R.color.green : android.R.color.white)
                             .actionBarSize());
             // Set an icon in the ActionBar
             menu.findItem(R.id.root_matches).setIcon(
                     new IconDrawable(this, Iconify.IconValue.fa_comments)
-                            .colorRes((currentPosition == 1) ? R.color.orange : R.color.green)
+                            .colorRes((currentPosition == 1) ? R.color.green : android.R.color.white)
                             .actionBarSize());
             // Set an icon in the ActionBar
             menu.findItem(R.id.root_moments).setIcon(
                     new IconDrawable(this, Iconify.IconValue.fa_picture_o)
-                            .colorRes((currentPosition == 2) ? R.color.green : R.color.orange)
+                            .colorRes((currentPosition == 2) ? R.color.green : android.R.color.white)
                             .actionBarSize());
 
             restoreActionBar();

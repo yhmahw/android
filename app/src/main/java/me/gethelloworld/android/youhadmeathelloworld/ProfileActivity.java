@@ -59,6 +59,14 @@ public class ProfileActivity extends Activity implements Callback<UserData> {
         super.onResume();
         APIManager.getAPI(this).getUserData(AuthenticationManager.getUsername(this), this);
     }
+    @Override
+    public void success(UserData userData, Response response) {
+        ((TextView)findViewById(R.id.show_platforms)).setText( asCommaList(userData.getPlatforms()) );
+        ((TextView)findViewById(R.id.show_languages)).setText( asCommaList(userData.getLanguages()) );
+        ((TextView)findViewById(R.id.show_advert)).setText( userData.getAdvert() );
+
+        findViewById(R.id.edits).setVisibility(View.VISIBLE);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -80,14 +88,7 @@ public class ProfileActivity extends Activity implements Callback<UserData> {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void success(UserData userData, Response response) {
-        ((TextView)findViewById(R.id.show_platforms)).setText( asCommaList(userData.getPlatforms()) );
-        ((TextView)findViewById(R.id.show_languages)).setText( asCommaList(userData.getLanguages()) );
-        ((TextView)findViewById(R.id.show_advert)).setText( userData.getAdvert() );
 
-        findViewById(R.id.edits).setVisibility(View.VISIBLE);
-    }
 
     private String asCommaList(List<String> strings) {
         if(strings == null) return "";
