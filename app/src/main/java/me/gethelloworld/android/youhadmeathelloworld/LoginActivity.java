@@ -81,7 +81,7 @@ public class LoginActivity extends Activity implements OAuthCallback, Callback<U
     @Override
     public void onFinished(final OAuthData oAuthData) {
         LoginData loginData = new LoginData(oAuthData.token);
-        Log.d("OAUTH", "Token Recieved from oauth.io: " + oAuthData.token);
+        Log.d("OAUTH", "Token Recieved from oauth.io: " + oAuthData.token + " | " + oAuthData.error);
         AuthenticationManager.setAuthToken(this, oAuthData.token);
 
         APIManager.getAPI(this).login(loginData, this);
@@ -104,7 +104,8 @@ public class LoginActivity extends Activity implements OAuthCallback, Callback<U
     public void failure(RetrofitError error) {
         //TODO: Show error dialog.
         Toast.makeText(this, "Login Failed. Please try again.", Toast.LENGTH_SHORT).show();
-        if (error.getResponse().getStatus() == 406) {
+
+        if (error != null && error.getResponse() != null && error.getResponse().getStatus() == 406) {
             login(null);
         }
         Log.e("API", "Login failed with the API: " + error.getLocalizedMessage());

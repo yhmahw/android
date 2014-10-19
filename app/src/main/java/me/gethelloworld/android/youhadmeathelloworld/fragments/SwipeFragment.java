@@ -36,6 +36,7 @@ public class SwipeFragment extends Fragment {
     public CardView cardView;
     IconButton accept;
     IconButton reject;
+    private String userId;
 
     public SwipeFragment() {
     }
@@ -53,19 +54,19 @@ public class SwipeFragment extends Fragment {
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cardView.setCard(null);
+                //cardView.setCard(null);
                 String hackathon = HackathonDataManager.getCurrentHackathonId(getActivity());
                 String userId = AuthenticationManager.getUsername(getActivity());
-                Vote vote = new Vote(hackathon, userId, true);
-                APIManager.getAPI(getActivity()).sendVote(userId, vote, new Callback<String>() {
+                Vote vote = new Vote(hackathon, SwipeFragment.this.userId, true);
+                APIManager.getAPI(getActivity()).sendVote(userId, vote, new Callback<Void>() {
                     @Override
-                    public void success(String s, Response response) {
+                    public void success(Void s, Response response) {
                         Log.d("vote", "Success");
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Log.d("vote", "Failure");
+                        Log.d("vote", "Failure" + error.getLocalizedMessage());
                     }
                 });
                 getNextUser();
@@ -74,19 +75,19 @@ public class SwipeFragment extends Fragment {
         reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cardView.setCard(null);
+                //cardView.setCard(null);
                 String hackathon = HackathonDataManager.getCurrentHackathonId(getActivity());
                 String userId = AuthenticationManager.getUsername(getActivity());
-                Vote vote = new Vote(hackathon, userId, false);
-                APIManager.getAPI(getActivity()).sendVote(userId, vote, new Callback<String>() {
+                Vote vote = new Vote(hackathon, SwipeFragment.this.userId, false);
+                APIManager.getAPI(getActivity()).sendVote(userId, vote, new Callback<Void>() {
                     @Override
-                    public void success(String s, Response response) {
+                    public void success(Void s, Response response) {
                         Log.d("vote", "Success");
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Log.d("vote", "Failure");
+                        Log.d("vote", "Failure" + error.getLocalizedMessage());
                     }
                 });
                 getNextUser();
@@ -188,13 +189,11 @@ public class SwipeFragment extends Fragment {
     public void getNextUser() {
         Random rand = new Random();
 
-        int size =MatchesManager.getMatchesCollection().getPotential().size();
-
-        if(size <= 0) {
+        if(MatchesManager.getMatchesCollection().getPotential() == null || MatchesManager.getMatchesCollection().getPotential().size() <= 0) {
             getView().findViewById(android.R.id.empty).setVisibility(View.VISIBLE);
             getView().findViewById(R.id.cards_ui).setVisibility(View.INVISIBLE);
         } else {
-            String userId = MatchesManager.getMatchesCollection().getPotential().get(rand.nextInt());
+            userId = MatchesManager.getMatchesCollection().getPotential().get(rand.nextInt(MatchesManager.getMatchesCollection().getPotential().size()));
             Log.d("NextUser", "Got the next user : " + userId);
             APIManager.getGitHubApi(getActivity()).getUser(userId, new Callback<GitHubUser>() {
                 @Override

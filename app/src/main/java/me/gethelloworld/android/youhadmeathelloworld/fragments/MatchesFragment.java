@@ -13,15 +13,20 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import me.gethelloworld.android.youhadmeathelloworld.ChatActivity;
+import me.gethelloworld.android.youhadmeathelloworld.MainActivity;
 import me.gethelloworld.android.youhadmeathelloworld.R;
 import me.gethelloworld.android.youhadmeathelloworld.RootFragmentInteractionListener;
+import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
+import me.gethelloworld.android.youhadmeathelloworld.api.MatchesCollections;
+import me.gethelloworld.android.youhadmeathelloworld.auth.AuthenticationManager;
 import me.gethelloworld.android.youhadmeathelloworld.controller.MatchesManager;
+import me.gethelloworld.android.youhadmeathelloworld.data.HackathonDataManager;
 import me.gethelloworld.android.youhadmeathelloworld.listeners.OnPageToFragmentListener;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
-public class MatchesFragment extends ListFragment implements OnPageToFragmentListener {
-
-    private static final String[] TESTDATA = new String[]{"Susan", "Jordan", "Michael", "Gregory"};
-
+public class MatchesFragment extends ListFragment implements OnPageToFragmentListener, View.OnClickListener, Callback<MatchesCollections> {
 
     private RootFragmentInteractionListener mListener;
 
@@ -39,6 +44,13 @@ public class MatchesFragment extends ListFragment implements OnPageToFragmentLis
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_matches, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        view.findViewById(R.id.refresh).setOnClickListener(this);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -78,11 +90,35 @@ public class MatchesFragment extends ListFragment implements OnPageToFragmentLis
 
         Intent intent = new Intent(getActivity(), ChatActivity.class);
         Bundle b = new Bundle();
-        b.putString("match_user", TESTDATA[position]);
+        b.putString("match_user", MatchesManager.getMatchesCollection().getMatches().get(position));
 
         intent.putExtras(b);
 
         startActivity(intent);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        APIManager.getAPI(getActivity()).getMatchesForUser(AuthenticationManager.getUsername(getActivity()),
+                HackathonDataManager.getCurrentHackathonId(getActivity()),
+                AuthenticationManager.getAuthToken(getActivity()),
+                this);
+
+    }
+
+    @Override
+    public void success(MatchesCollections matchesCollections, Response response) {
+        Log.d("Prep", "Got object : " + matchesCollections.getPotential().size());
+        MatchesManager.setMatchesCollection(matchesCollections);
+        onPageToFragment();
+    }
+
+    @Override
+    public void failure(RetrofitError error) {
+        Log.d("Matches", "Failure to get matches" + error.getResponse().getStatus() + " " + error.getLocalizedMessage());
+
 
     }
 }

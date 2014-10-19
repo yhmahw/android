@@ -98,6 +98,9 @@ public class EditProfileActivity extends Activity implements Callback<UserData> 
     }
 
     private String asCommaList(List<String> strings) {
+        if(strings == null) return "";
+
+
         String foo = strings.get(0);
         for(int i = 1; i < strings.size(); i++) {
             foo += ", " + strings.get(i);

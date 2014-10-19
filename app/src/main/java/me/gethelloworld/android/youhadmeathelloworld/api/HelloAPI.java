@@ -35,7 +35,7 @@ public interface HelloAPI {
     void updateUser(@Path("userid") String userId, @Body Map<String, Object> fields, Callback<Void> callback);
 
     @PUT("/user/{userId}/vote")
-    void sendVote(@Path("userId") String userId, @Body Vote vote, Callback<String> callback);
+    void sendVote(@Path("userId") String userId, @Body Vote vote, Callback<Void> callback);
 
     @GET("/user/{name}/hackathon/{hackname}/matches")
     void getMatchesForUser(@Path("name") String username, @Path("hackname") String hackathonName, @Query("accessToken") String accessToken, Callback<MatchesCollections> matchesCollectionsCallback);

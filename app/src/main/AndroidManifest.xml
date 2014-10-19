@@ -54,6 +54,10 @@
             android:name=".EditProfileActivity"
             android:label="Edit Profile" >
         </activity>
+        <activity
+            android:name=".MomentActivity"
+            android:label="@string/title_activity_moment" >
+        </activity>
     </application>
 
 </manifest>
