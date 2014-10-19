@@ -13,6 +13,8 @@ import java.util.List;
 import me.gethelloworld.android.youhadmeathelloworld.adapters.HackathonsListAdapter;
 import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
 import me.gethelloworld.android.youhadmeathelloworld.api.Hackathon;
+import me.gethelloworld.android.youhadmeathelloworld.api.HelloAPI;
+import me.gethelloworld.android.youhadmeathelloworld.auth.AuthenticationManager;
 import me.gethelloworld.android.youhadmeathelloworld.data.HackathonDataManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -45,8 +47,20 @@ public class HackathonsActivity extends ListActivity implements Callback<List<Ha
 
         HackathonDataManager.setCurrentHackathon(this, hackathon);
 
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+        APIManager.getAPI(this).joinHackathon(hackathon.getName(), AuthenticationManager.getUsername(this), new Callback<String>() {
+            @Override
+            public void success(String s, Response response) {
+                startActivity(new Intent(HackathonsActivity.this, MainActivity.class));
+                finish();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("Hackathon Join", "Error");
+            }
+        });
+
+
     }
 
     @Override
