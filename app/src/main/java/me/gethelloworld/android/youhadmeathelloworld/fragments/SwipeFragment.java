@@ -165,7 +165,7 @@ public class SwipeFragment extends Fragment {
         cardView = (CardView) getActivity().findViewById(R.id.user_card);
         Card card = new Card(getActivity());
 
-        card.setSwipeable(true);
+        card.setSwipeable(false);
 
         ((SmartImageView) cardView.findViewById(R.id.card_thumbnail_image)).setImageUrl(user.getAvatar_url());
         ((TextView) cardView.findViewById(R.id.card_main_inner_simple_title)).setText(user.getName());

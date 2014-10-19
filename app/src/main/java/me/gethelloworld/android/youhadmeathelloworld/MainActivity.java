@@ -2,6 +2,7 @@ package me.gethelloworld.android.youhadmeathelloworld;
 
 import android.app.ActionBar;
 import android.app.Application;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -61,6 +63,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
     private MainViewPagerAdapter mPagerAdapter;
     public Date lastRecordedDate;
     public int TIME_PASSED = 12;
+    public boolean STOP_RUNNING = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -248,7 +251,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
     public void receivedSighting(final Visit visit, final Date date, Integer integer) {
         long timePassed = date.getTime() - lastRecordedDate.getTime();
         timePassed = timePassed / 100;
-        if ( timePassed > TIME_PASSED ) {
+        if ( timePassed > TIME_PASSED && STOP_RUNNING ) {
             Log.d("tags", "Received Sighting Date: " + date + " & timePassed: " + timePassed);
             Handler h = new Handler(this.getMainLooper());
             h.post(new Runnable() {
@@ -265,8 +268,13 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
                                     if ( s == null ){
                                         return;
                                     }
+                                    String userId = s.users.get(0);
                                     UserData userData = new UserData();
-                                    userData.setUserId(response.getBody().toString());
+                                    userData.setUserId(userId);
+                                    Intent intent = new Intent(getApplicationContext(), UserFoundActivity.class);
+                                    intent.putExtra("userId", userId);
+                                    STOP_RUNNING = false;
+                                    startActivity(intent);
                                     Log.d("tylor", "we made it here");
 
                                 }
