@@ -23,6 +23,9 @@ public interface HelloAPI {
     void getHackathons(Callback<List<Hackathon>> hackathonListCallback);
 
 
+    @GET("/user/{userId}")
+    void getUserData(@Path("userId") String username, Callback<UserData> UserDataCallback);
+
     //TODO: Figure out if I even need to use this.
     @PUT("/hackathon/{name}/join/{userId}")
     void joinHackathon(@Path("name") String name, @Path("userId") String userId);
