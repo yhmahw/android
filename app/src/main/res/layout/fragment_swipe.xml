@@ -22,17 +22,25 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
+        android:dividerPadding="30dp"
         android:layout_height="wrap_content">
 
         <IconButton
             android:id="@+id/button_accept"
+            android:background="@android:color/transparent"
+            android:textColor="#0f0"
+            android:textSize="100sp"
             android:text="{fa-check}"
             android:layout_width="100dp"
             android:layout_height="wrap_content" />
 
         <IconButton
             android:id="@+id/button_reject"
+
             android:text="{fa-times}"
+            android:textSize="100sp"
+            android:background="@android:color/transparent"
+            android:textColor="#f00"
             android:layout_width="100dp"
             android:layout_height="wrap_content" />
     </LinearLayout>
