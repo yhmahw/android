@@ -34,7 +34,40 @@
             android:layout_below="@id/profileImage"
             />
 
+
+        <LinearLayout
+            android:paddingTop="10dp"
+            android:layout_below="@id/navigation_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/edit_hackathonAdvert"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Hackathon Advert"/>
+
+            <EditText
+                android:id="@+id/edit_languages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="My Languages (comma separated)"/>
+
+            <EditText
+                android:id="@+id/edit_platforms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="My Platforms (comma separated)"/>
+
+            <IconButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onDone"
+                android:text="{fa-check} Done"/>
+
+
+        </LinearLayout>
     </RelativeLayout>
-
-
 </ScrollView>

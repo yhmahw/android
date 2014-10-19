@@ -58,8 +58,6 @@ public class HackathonsActivity extends ListActivity implements Callback<List<Ha
                 Log.d("Hackathon Join", "Error " + error.getLocalizedMessage());
             }
         });
-
-
     }
 
     @Override
