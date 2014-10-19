@@ -1,4 +1,4 @@
-package me.gethelloworld.android.youhadmeathelloworld;
+package me.gethelloworld.android.youhadmeathelloworld.api;
 
 /**
  * Created by david on 10/19/14.
