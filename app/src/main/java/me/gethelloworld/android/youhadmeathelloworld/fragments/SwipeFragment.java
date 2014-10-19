@@ -200,7 +200,7 @@ public class SwipeFragment extends Fragment implements Callback<GitHubUser> {
     }
 
     public void getNextUser(){
-        
+
     }
 
 

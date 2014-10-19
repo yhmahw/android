@@ -8,10 +8,29 @@
     android:orientation="vertical" >
 
 
-    <com.loopj.android.image.SmartImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/boilermake"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <com.loopj.android.image.SmartImageView
+            android:id="@+id/navigation_photo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/boilermake"/>
+
+        <TextView
+            android:id="@+id/navigation_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/navigation_photo"
+            />
+
+    </RelativeLayout>
 
     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"

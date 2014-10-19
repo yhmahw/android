@@ -14,11 +14,12 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         card:card_layout_resourceID="@layout/custom_card_layout"
-        android:layout_marginTop="12dp"/>
+        android:layout_marginTop="12dp"
+        android:layout_above="@+id/actionButtons"/>
 
     <LinearLayout
+        android:id="@+id/actionButtons"
         android:layout_alignParentBottom="true"
-        android:layout_below="@id/user_card"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -34,7 +35,7 @@
             android:text="{fa-times}"
             android:layout_width="100dp"
             android:layout_height="wrap_content" />
-        </LinearLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>
