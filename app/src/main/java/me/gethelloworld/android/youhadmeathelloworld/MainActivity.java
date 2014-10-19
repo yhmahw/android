@@ -26,7 +26,9 @@ import com.joanzapata.android.iconify.Iconify;
 
 import me.gethelloworld.android.youhadmeathelloworld.adapters.MainViewPagerAdapter;
 import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
+import me.gethelloworld.android.youhadmeathelloworld.api.GimbalData;
 import me.gethelloworld.android.youhadmeathelloworld.api.UserData;
+import me.gethelloworld.android.youhadmeathelloworld.api.UserIdList;
 import me.gethelloworld.android.youhadmeathelloworld.auth.AuthenticationManager;
 import me.gethelloworld.android.youhadmeathelloworld.controller.MainFragmentsStore;
 import me.gethelloworld.android.youhadmeathelloworld.listeners.OnPageToFragmentListener;
@@ -58,6 +60,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
     private ViewPager mPager;
     private MainViewPagerAdapter mPagerAdapter;
     public Date lastRecordedDate;
+    public int TIME_PASSED = 12;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -248,36 +251,39 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
     public void receivedSighting(final Visit visit, final Date date, Integer integer) {
         long timePassed = date.getTime() - lastRecordedDate.getTime();
         timePassed = timePassed / 100;
-        if ( timePassed > 15 ) {
+        if ( timePassed > TIME_PASSED ) {
             Log.d("tags", "Received Sighting Date: " + date + " & timePassed: " + timePassed);
             Handler h = new Handler(this.getMainLooper());
             h.post(new Runnable() {
                 @Override
                 public void run() {
-                    APIManager.getAPI(getApplicationContext()).gimbalEnter(visit.getTransmitter().getName(), AuthenticationManager.getUsername(getApplicationContext()), new Callback<String>() {
+                    GimbalData gimbalData = new GimbalData(AuthenticationManager.getUsername(getApplicationContext()));
+                    APIManager.getAPI(getApplicationContext()).gimbalEnter(visit.getTransmitter().getName(), gimbalData, new Callback<Void>() {
                         @Override
-                        public void success(String s, Response response) {
-                            Log.d("debug", "Success");
-                            APIManager.getAPI(getApplicationContext()).gimbal(visit.getTransmitter().getName(), new Callback<String>() {
+                        public void success(Void s, Response response) {
+                            Log.d("debug", "Success here where you want it.");
+                            APIManager.getAPI(getApplicationContext()).gimbal(visit.getTransmitter().getName(), new Callback<UserIdList>() {
                                 @Override
-                                public void success(String s, Response response) {
-                                    if ( response == null || response.getBody().toString().isEmpty() ){
+                                public void success(UserIdList s, Response response) {
+                                    if ( s == null ){
                                         return;
                                     }
                                     UserData userData = new UserData();
                                     userData.setUserId(response.getBody().toString());
+                                    Log.d("tylor", "we made it here");
+
                                 }
 
                                 @Override
                                 public void failure(RetrofitError error) {
-
+                                    Log.d("debug", "and more failure because: " + error.toString());
                                 }
                             });
                         }
 
                         @Override
                         public void failure(RetrofitError error) {
-                            Log.d("debug", "Failure");
+                            Log.d("debug", "Failure1: " + error.toString());
                         }
                     });
                     lastRecordedDate = date;
@@ -302,15 +308,16 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
         h.post(new Runnable() {
             @Override
             public void run() {
-                APIManager.getAPI(getApplicationContext()).gimbalExit(visit.getTransmitter().getName(), AuthenticationManager.getUsername(getApplicationContext()), new Callback<String>() {
+                GimbalData gimbalData = new GimbalData(AuthenticationManager.getUsername(getApplicationContext()));
+                APIManager.getAPI(getApplicationContext()).gimbalExit(visit.getTransmitter().getName(), gimbalData, new Callback<Void>() {
                     @Override
-                    public void success(String s, Response response) {
-                        Log.d("debug", "Success");
+                    public void success(Void s, Response response) {
+                        Log.d("debug", "Success2");
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Log.d("debug", "Failure");
+                        Log.d("debug", "Failure2");
                     }
                 });
             }

@@ -37,11 +37,11 @@ public interface HelloAPI {
     void joinHackathon(@Path("name") String hackName, @Path("userId") String userId, Callback<Void> stringCallback);
 
     @POST("/gimbal/{gimbalId}/enter")
-    void gimbalEnter(@Path("gimbalId") String gimbalId, @Body String userId, Callback<String> callback);
+    void gimbalEnter(@Path("gimbalId") String gimbalId, @Body GimbalData gimbalData, Callback<Void> callback);
 
     @POST("/gimbal/{gimbalId}/exit")
-    void gimbalExit(@Path("gimbalId") String gimbalId, @Body String userId, Callback<String> callback);
+    void gimbalExit(@Path("gimbalId") String gimbalId, @Body GimbalData gimbalData, Callback<Void> callback);
 
     @GET("/gimbal/{gimbalId}")
-    void gimbal(@Path("gimbalId") String gimbalId, Callback<String> callback);
+    void gimbal(@Path("gimbalId") String gimbalId, Callback<UserIdList> callback);
 }
