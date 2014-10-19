@@ -24,27 +24,30 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class EditProfileActivity extends Activity implements Callback<GitHubUser> {
+public class EditProfileActivity extends Activity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        APIManager.getGitHubApi(this).getUser(this);
+        APIManager.getGitHubApi(this).getUser(new Callback<GitHubUser>() {
+            @Override
+            public void success(GitHubUser gitHubUser, Response response) {
+                //Success of github request.
+                ((SmartImageView)findViewById(R.id.profileImage)).setImageUrl(gitHubUser.getAvatar_url());
+                ((TextView)findViewById(R.id.navigation_name)).setText(gitHubUser.getName());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("Github", "Github req failed | " + error.getLocalizedMessage());
+            }
+        });
+
     }
 
-    @Override
-    public void success(GitHubUser gitHubUser, Response response) {
-        //Success of github request.
-        ((SmartImageView)findViewById(R.id.profileImage)).setImageUrl(gitHubUser.getAvatar_url());
-        ((TextView)findViewById(R.id.navigation_name)).setText(gitHubUser.getName());
-    }
 
-    @Override
-    public void failure(RetrofitError error) {
-        Log.d("Github", "Github req failed | " + error.getLocalizedMessage());
-    }
 
     public void onDone(View view) {
 
