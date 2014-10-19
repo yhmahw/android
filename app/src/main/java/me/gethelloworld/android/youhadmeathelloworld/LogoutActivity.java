@@ -1,6 +1,7 @@
 package me.gethelloworld.android.youhadmeathelloworld;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +13,12 @@ public class LogoutActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logout);
+
+//        getSharedPreferences("auth", MODE_PRIVATE).edit().clear().commit();
+//        getSharedPreferences("hackathons", MODE_PRIVATE).edit().clear().commit();
+
+//        startActivity(new Intent(this, LoginActivity.class));
+//        finish();
     }
 
 

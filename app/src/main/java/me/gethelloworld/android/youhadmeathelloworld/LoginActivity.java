@@ -70,7 +70,7 @@ public class LoginActivity extends Activity implements OAuthCallback, Callback<U
         if(HackathonDataManager.getCurrentHackathonId(this) == null) {
             startActivity(new Intent(LoginActivity.this, HackathonsActivity.class));
         } else {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            startActivity(new Intent(LoginActivity.this, PreparingMatchesActivity.class));
         }
         finish();
     }
