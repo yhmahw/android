@@ -4,15 +4,31 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import me.gethelloworld.android.youhadmeathelloworld.adapters.HackathonsListAdapter;
+import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
+import me.gethelloworld.android.youhadmeathelloworld.api.UserData;
+import me.gethelloworld.android.youhadmeathelloworld.auth.AuthenticationManager;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.http.GET;
 
 
-public class ProfileActivity extends Activity {
+public class ProfileActivity extends Activity implements Callback<UserData> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_profile);
+
+        APIManager.getAPI(this).getUserData(AuthenticationManager.getUsername(this), this);
+
     }
+
+
 
 
     @Override
@@ -32,5 +48,20 @@ public class ProfileActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void success(UserData userData, Response response) {
+
+    }
+
+    @Override
+    public void failure(RetrofitError error) {
+        setError();
+    }
+
+    private void setError() {
+        Toast.makeText(this, "There was an error loading this profile", Toast.LENGTH_SHORT).show();
+
     }
 }
