@@ -83,13 +83,11 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
         getActionBar().setTitle(title);
     }
 
-
     @Override
     public void onNavigationDrawerItemSelected(NavigationDrawerListItem item) {
         // update the main content by replacing fragments
 
         startActivity(new Intent(this, item.getActivityClazz()));
-        finish();
     }
 
     public void restoreActionBar() {
@@ -98,7 +96,6 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

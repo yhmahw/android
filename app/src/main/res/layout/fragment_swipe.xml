@@ -17,32 +17,28 @@
         android:layout_marginTop="12dp"
         android:layout_alignParentTop="true"/>
 
-    <LinearLayout
-        android:id="@+id/actionButtons"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:dividerPadding="30dp"
-        android:layout_height="wrap_content">
-
         <IconButton
-            android:id="@+id/button_accept"
-            android:background="@android:color/transparent"
-            android:textColor="#0f0"
-            android:textSize="100sp"
-            android:text="{fa-check}"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content" />
-
-        <IconButton
+            android:layout_margin="30dp"
             android:id="@+id/button_reject"
-            android:text="{fa-times}"
-            android:textSize="100sp"
+            android:text="{fa-times-circle-o}"
+            android:textSize="130sp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
             android:background="@android:color/transparent"
-            android:textColor="#f00"
-            android:layout_width="100dp"
+            android:textColor="@color/orange"
+            android:layout_width="130dp"
             android:layout_height="wrap_content" />
-    </LinearLayout>
 
+        <IconButton
+            android:layout_margin="30dp"
+            android:id="@+id/button_accept"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:background="@android:color/transparent"
+            android:textColor="@color/green"
+            android:textSize="130sp"
+            android:text="{fa-check-circle-o}"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content" />
 
 </RelativeLayout>

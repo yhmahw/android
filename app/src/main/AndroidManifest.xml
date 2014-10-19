@@ -50,6 +50,10 @@
             android:name=".PreparingMatchesActivity"
             android:label="@string/title_activity_preparing_matches" >
         </activity>
+        <activity
+            android:name=".EditProfileActivity"
+            android:label="@string/title_activity_edit_profile" >
+        </activity>
     </application>
 
 </manifest>
