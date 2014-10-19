@@ -2,12 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="me.gethelloworld.android.youhadmeathelloworld.fragments.MomentsFragment">
+    tools:context="me.gethelloworld.android.youhadmeathelloworld.fragments.MomentsFragment"
+    android:layout_gravity="center">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <IconButton
+        android:id="@+id/cameraButton"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Moments Fragment" />
+        android:text="{fa-camera}" />
 
 </FrameLayout>

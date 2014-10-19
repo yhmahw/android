@@ -1,7 +1,6 @@
 package me.gethelloworld.android.youhadmeathelloworld;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,28 +12,28 @@ import android.widget.Toast;
 
 import com.loopj.android.image.SmartImageView;
 
-import org.w3c.dom.Text;
-
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import me.gethelloworld.android.youhadmeathelloworld.adapters.HackathonsListAdapter;
 import me.gethelloworld.android.youhadmeathelloworld.api.APIManager;
 import me.gethelloworld.android.youhadmeathelloworld.api.GitHubUser;
+import me.gethelloworld.android.youhadmeathelloworld.api.Hackathon;
 import me.gethelloworld.android.youhadmeathelloworld.api.UserData;
 import me.gethelloworld.android.youhadmeathelloworld.auth.AuthenticationManager;
+import me.gethelloworld.android.youhadmeathelloworld.data.HackathonDataManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import retrofit.http.GET;
 
 
-public class ProfileActivity extends Activity implements Callback<UserData> {
+public class EditProfileActivity extends Activity implements Callback<UserData> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_edit_profile);
 
         APIManager.getGitHubApi(this).getUser(new Callback<GitHubUser>() {
             @Override
@@ -51,7 +50,6 @@ public class ProfileActivity extends Activity implements Callback<UserData> {
         });
 
         findViewById(R.id.edits).setVisibility(View.INVISIBLE);
-
     }
 
     @Override
@@ -60,37 +58,48 @@ public class ProfileActivity extends Activity implements Callback<UserData> {
         APIManager.getAPI(this).getUserData(AuthenticationManager.getUsername(this), this);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.profile, menu);
-        return true;
-    }
+    public void onDone(View view) {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_edit) {
-            startActivity(new Intent(this, EditProfileActivity.class));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        String advert = ((EditText) findViewById(R.id.edit_hackathonAdvert)).getText().toString();
+        String[] languages = ((EditText) findViewById(R.id.edit_languages)).getText().toString().split(",");
+        String[] platforms = ((EditText) findViewById(R.id.edit_platforms)).getText().toString().split(",");
+
+        Map<String, Object> userUpdate = new HashMap<String, Object>();
+
+        userUpdate.put("languages", languages);
+        userUpdate.put("platforms", platforms);
+        userUpdate.put("advert", advert);
+
+
+        APIManager.getAPI(this).updateUser(AuthenticationManager.getUsername(this), userUpdate, new Callback<Void>() {
+            @Override
+            public void success(Void aVoid, Response response) {
+                Log.d("User", "Updated successfully");
+
+                onBackPressed();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("User", "Update failed" + error.getLocalizedMessage());
+
+            }
+        });
+
     }
 
     @Override
     public void success(UserData userData, Response response) {
-        ((TextView)findViewById(R.id.show_platforms)).setText( asCommaList(userData.getPlatforms()) );
-        ((TextView)findViewById(R.id.show_languages)).setText( asCommaList(userData.getLanguages()) );
-        ((TextView)findViewById(R.id.show_advert)).setText( userData.getAdvert() );
+        ((EditText)findViewById(R.id.edit_platforms)).setText( asCommaList(userData.getPlatforms()) );
+        ((EditText)findViewById(R.id.edit_languages)).setText( asCommaList(userData.getLanguages()) );
+        ((EditText)findViewById(R.id.edit_hackathonAdvert)).setText( userData.getAdvert() );
 
         findViewById(R.id.edits).setVisibility(View.VISIBLE);
     }
 
     private String asCommaList(List<String> strings) {
         if(strings == null) return "";
+
 
         String foo = strings.get(0);
         for(int i = 1; i < strings.size(); i++) {
@@ -104,5 +113,4 @@ public class ProfileActivity extends Activity implements Callback<UserData> {
         Toast.makeText(this, "There was an error loading this profile", Toast.LENGTH_SHORT).show();
 
     }
-
 }

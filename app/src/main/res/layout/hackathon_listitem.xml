@@ -9,18 +9,21 @@
         android:id="@+id/hackathinlist_image"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher"
+        android:layout_centerVertical="true"
         />
 
 
     <TextView
-
         android:id="@+id/hackathonlist_name"
         android:layout_toRightOf="@+id/hackathinlist_image"
-        android:text="Hackathon"
         android:textAppearance="?android:textAppearanceMedium"
+        android:text="Boilermake"
         android:layout_margin="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:textColor="@color/orange"
+        android:textSize="25sp"/>
 
 </RelativeLayout>

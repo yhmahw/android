@@ -1,29 +1,35 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="me.gethelloworld.android.youhadmeathelloworld.fragments.MatchesFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Refresh"
+        android:id="@+id/refresh"/>
+
     <ListView
         android:id="@android:id/list"
+        android:layout_below="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Matches Fragment" />
 
     <RelativeLayout
         android:id="@android:id/empty"
+        android:layout_below="@+id/refresh"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
         <ImageView
             android:id="@+id/empty_image"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:maxWidth="200dp"
-            android:src="@drawable/boilermake"/>
+            android:maxWidth="200dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,8 +37,9 @@
             android:layout_centerHorizontal="true"
             android:textAppearance="?android:textAppearanceLarge"
             android:textStyle="bold"
-            android:text="You have no matches :("/>
+            android:text="You have no matches :("
+            android:textColor="@color/green"/>
 
     </RelativeLayout>
 
-</FrameLayout>
+</RelativeLayout>

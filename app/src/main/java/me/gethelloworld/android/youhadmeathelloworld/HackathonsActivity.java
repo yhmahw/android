@@ -49,7 +49,7 @@ public class HackathonsActivity extends ListActivity implements Callback<List<Ha
         APIManager.getAPI(this).joinHackathon(hackathon.getName(), AuthenticationManager.getUsername(this), new Callback<Void>() {
             @Override
             public void success(Void s, Response response) {
-                startActivity(new Intent(HackathonsActivity.this, MainActivity.class));
+                startActivity(new Intent(HackathonsActivity.this, PreparingMatchesActivity.class));
                 finish();
             }
 
@@ -58,8 +58,6 @@ public class HackathonsActivity extends ListActivity implements Callback<List<Ha
                 Log.d("Hackathon Join", "Error " + error.getLocalizedMessage());
             }
         });
-
-
     }
 
     @Override

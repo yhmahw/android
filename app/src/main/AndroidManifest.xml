@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -36,11 +37,11 @@
         </activity>
         <activity
             android:name=".HackathonsActivity"
-            android:label="@string/title_activity_hackathons" >
+            android:label="Current Hackathons" >
         </activity>
         <activity
             android:name=".ChatActivity"
-            android:label="@string/title_activity_chat"
+            android:label="Chat with Hackers"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -48,7 +49,7 @@
         </activity>
         <activity
             android:name=".ProfileActivity"
-            android:label="@string/title_activity_profile"
+            android:label="Your Profile"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -56,11 +57,19 @@
         </activity>
         <activity
             android:name=".LogoutActivity"
-            android:label="@string/title_activity_logout" >
+            android:label="Logout" >
         </activity>
         <activity
             android:name=".PreparingMatchesActivity"
-            android:label="@string/title_activity_preparing_matches" >
+            android:label="Preparing Matches" >
+        </activity>
+        <activity
+            android:name=".EditProfileActivity"
+            android:label="Edit Profile" >
+        </activity>
+        <activity
+            android:name=".MomentActivity"
+            android:label="@string/title_activity_moment" >
         </activity>
     </application>
 

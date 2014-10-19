@@ -1,8 +1,14 @@
 package me.gethelloworld.android.youhadmeathelloworld.api;
 
 
-import java.util.List;
+import android.view.Window;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import me.gethelloworld.android.youhadmeathelloworld.MomentActivity;
+import me.gethelloworld.android.youhadmeathelloworld.Tweet;
 import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;
@@ -22,13 +28,18 @@ public interface HelloAPI {
     @GET("/hackathon")
     void getHackathons(Callback<List<Hackathon>> hackathonListCallback);
 
+    @GET("/user/{userId}")
+    void getUserData(@Path("userId") String username, Callback<UserData> UserDataCallback);
 
     //TODO: Figure out if I even need to use this.
     @PUT("/hackathon/{name}/join/{userId}")
     void joinHackathon(@Path("name") String name, @Path("userId") String userId);
 
+    @PUT("/user/{userid}")
+    void updateUser(@Path("userid") String userId, @Body Map<String, Object> fields, Callback<Void> callback);
+
     @PUT("/user/{userId}/vote")
-    void sendVote(@Path("userId") String userId, @Body Vote vote, Callback<String> callback);
+    void sendVote(@Path("userId") String userId, @Body Vote vote, Callback<Void> callback);
 
     @GET("/user/{name}/hackathon/{hackname}/matches")
     void getMatchesForUser(@Path("name") String username, @Path("hackname") String hackathonName, @Query("accessToken") String accessToken, Callback<MatchesCollections> matchesCollectionsCallback);
@@ -44,4 +55,7 @@ public interface HelloAPI {
 
     @GET("/gimbal/{gimbalId}")
     void gimbal(@Path("gimbalId") String gimbalId, Callback<UserIdList> callback);
+
+    @POST("/tweet")
+    void sendTweet(@Body Tweet tweet, Callback<Void> callback);
 }

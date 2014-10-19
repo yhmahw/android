@@ -6,43 +6,88 @@
     android:background="#ddd"
     tools:context="me.gethelloworld.android.youhadmeathelloworld.fragments.SwipeFragment">
 
-    <it.gmariotti.cardslib.library.view.CardView
-        android:id="@+id/user_card"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        card:card_layout_resourceID="@layout/custom_card_layout"
-        android:layout_marginTop="12dp"
-        android:layout_alignParentTop="true"/>
 
-    <LinearLayout
-        android:id="@+id/actionButtons"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:dividerPadding="30dp"
-        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@android:id/empty"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="There seem to be no people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/green"
+            android:textSize="17dp"
+            android:id="@+id/text"/>
+
+        <TextView
+            android:text="{"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/orange"
+            android:textSize="45dp"
+            android:textStyle="bold"
+            android:layout_toLeftOf="@id/text"
+            android:paddingRight="5dp"/>
+
+        <TextView
+            android:text="}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/text"
+            android:textColor="@color/orange"
+            android:textSize="45dp"
+            android:textStyle="bold"
+            android:paddingLeft="5dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/cards_ui"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <it.gmariotti.cardslib.library.view.CardView
+            android:id="@+id/user_card"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            card:card_layout_resourceID="@layout/custom_card_layout"
+            android:layout_marginTop="12dp"
+            android:layout_alignParentTop="true"/>
 
         <IconButton
-            android:id="@+id/button_accept"
-            android:background="@android:color/transparent"
-            android:textColor="#0f0"
-            android:textSize="100sp"
-            android:text="{fa-check}"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content" />
-
-        <IconButton
+            android:layout_margin="30dp"
             android:id="@+id/button_reject"
-            android:text="{fa-times}"
-            android:textSize="100sp"
+            android:text="{fa-times-circle-o}"
+            android:textSize="130sp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
             android:background="@android:color/transparent"
-            android:textColor="#f00"
-            android:layout_width="100dp"
+            android:textColor="@color/orange"
+            android:layout_width="130dp"
             android:layout_height="wrap_content" />
-    </LinearLayout>
+
+        <IconButton
+            android:layout_margin="30dp"
+            android:id="@+id/button_accept"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:textColor="@color/green"
+            android:textSize="130sp"
+            android:text="{fa-check-circle-o}"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

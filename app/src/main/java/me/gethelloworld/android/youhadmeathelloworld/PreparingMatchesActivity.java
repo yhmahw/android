@@ -55,6 +55,7 @@ public class PreparingMatchesActivity extends Activity implements Callback<Match
 
     @Override
     public void success(MatchesCollections matchesCollections, Response response) {
+        Log.d("Prep", "Got object : " + matchesCollections.getPotential().size());
         MatchesManager.setMatchesCollection(matchesCollections);
 
         startActivity(new Intent(this, MainActivity.class));
@@ -65,35 +66,6 @@ public class PreparingMatchesActivity extends Activity implements Callback<Match
     public void failure(RetrofitError error) {
         Log.d("Matches", "Failure to get matches" + error.getResponse().getStatus() + " " + error.getLocalizedMessage());
 
-        MatchesCollections mc = new MatchesCollections();
 
-        List<String> a = new ArrayList<String>();
-        List<String> b = new ArrayList<String>();
-        List<String> c = new ArrayList<String>();
-
-
-        a.add("vidia");
-        a.add("fieldn");
-        a.add("garr741");
-        a.add("mhoc");
-
-        b.add("vidia");
-        b.add("fieldn");
-        b.add("garr741");
-        b.add("mhoc");
-
-        c.add("vidia");
-        c.add("fieldn");
-        c.add("garr741");
-        c.add("mhoc");
-
-        mc.setInterests(a);
-        mc.setPotential(b);
-        mc.setRejects(c);
-
-        MatchesManager.setMatchesCollection(mc);
-
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
     }
 }

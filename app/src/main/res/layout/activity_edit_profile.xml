@@ -1,11 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin">
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -30,7 +27,7 @@
             android:textColor="@color/orange"
             android:paddingTop="5dp"
             android:layout_centerHorizontal="true"
-            android:textSize="30sp"
+            android:textSize="24sp"
             android:textAppearance="?android:textAppearanceMedium"
             android:layout_centerVertical="true"
             android:layout_below="@id/profileImage"
@@ -46,53 +43,31 @@
             android:orientation="vertical">
 
 
-            <TextView
-                android:text="bio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/orange"/>
-
-            <TextView
-                android:id="@+id/show_advert"
+            <EditText
+                android:id="@+id/edit_hackathonAdvert"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/green"/>
+                android:hint="Hackathon Advert"/>
 
-            <TextView
-                android:text="languages"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/orange"/>
-
-            <TextView
-                android:id="@+id/show_languages"
+            <EditText
+                android:id="@+id/edit_languages"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/green"/>\
+                android:hint="My Languages (comma separated)"/>
 
-            <TextView
-                android:text="platforms"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/orange"/>
-
-            <TextView
-                android:id="@+id/show_platforms"
+            <EditText
+                android:id="@+id/edit_platforms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/green"/>
+                android:hint="My Platforms (comma separated)"/>
+
+            <IconButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onDone"
+                android:text="{fa-check} Done"/>
+
 
         </LinearLayout>
     </RelativeLayout>
-
-
-
-
-
-</RelativeLayout>
+</ScrollView>

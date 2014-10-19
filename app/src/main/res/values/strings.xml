@@ -17,5 +17,7 @@
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_logout">LogoutActivity</string>
     <string name="title_activity_preparing_matches">PreparingMatchesActivity</string>
+    <string name="title_activity_edit_profile">EditProfileActivity</string>
+    <string name="title_activity_moment">MomentActivity</string>
 
 </resources>
