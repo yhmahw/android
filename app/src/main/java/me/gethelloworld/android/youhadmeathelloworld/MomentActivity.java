@@ -9,6 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3Client;
+
 
 public class MomentActivity extends Activity {
 
@@ -40,6 +43,9 @@ public class MomentActivity extends Activity {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             mImageView.setImageBitmap(imageBitmap);
+
+            AmazonS3Client s3Client = new AmazonS3Client( new BasicAWSCredentials( getString(R.string.myAccessKey), getString(R.string.mySecretKey) ) );
+
         }
     }
 

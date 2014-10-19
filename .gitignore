@@ -5,3 +5,5 @@
 .DS_Store
 /build
 .idea
+aws.xml
+app/src/main/res/values/aws.xml
