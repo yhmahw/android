@@ -9,6 +9,7 @@ import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.PUT;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 /**
  * Created by david on 10/18/14.
@@ -28,4 +29,7 @@ public interface HelloAPI {
 
     @PUT("/user/{userId}/vote")
     void sendVote(@Path("userId") String userId, @Body Vote vote, Callback<String> callback);
+
+    @GET("/user/{name}/hackathon/{hackname}/matches")
+    void getMatchesForUser(@Path("name") String username, @Path("hackname") String hackathonName, @Query("accessToken") String accessToken, Callback<MatchesCollections> matchesCollectionsCallback);
 }
