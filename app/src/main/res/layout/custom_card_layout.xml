@@ -6,7 +6,7 @@
 
         <me.gethelloworld.android.youhadmeathelloworld.image.SmartCircularImageView
         xmlns:android="http://schemas.android.com/apk/res/android"
-
+        android:padding="5dp"
         android:id="@+id/card_thumbnail_image"
         style="@style/card_thumbnail_image"/>
 
@@ -18,6 +18,8 @@
             <TextView
                 android:id="@+id/card_main_inner_simple_title"
                 android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
@@ -35,25 +37,37 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_below="@id/card_thumbnail_image"
         android:orientation="vertical" android:layout_width="match_parent"
+        android:padding="10dp"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tech"
-            android:layout_width="fill_parent"
+            android:text="languages"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Technologies:"/>
-
-        <GridView
-            android:id="@+id/gridview"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:numColumns="3">
-        </GridView>
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/orange"/>
 
         <TextView
-            android:id="@+id/hackathons"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:id="@+id/show_languages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/green"/>
+
+        <TextView
+            android:text="platforms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/orange"/>
+
+        <TextView
+            android:id="@+id/show_platforms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/green"/>
+
 
     </LinearLayout>
 

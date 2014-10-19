@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.loopj.android.image.SmartImageView;
 
+import java.util.List;
 import java.util.Random;
 
 import it.gmariotti.cardslib.library.internal.Card;
@@ -97,6 +98,7 @@ public class SwipeFragment extends Fragment {
     }
 
 
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -171,6 +173,13 @@ public class SwipeFragment extends Fragment {
         ((TextView) cardView.findViewById(R.id.card_main_inner_simple_title)).setText(user.getName());
         ((TextView) cardView.findViewById(R.id.card_profile_description)).setText(userData.getAdvert());
 
+
+
+        ((TextView)cardView.findViewById(R.id.show_platforms)).setText( asCommaList(userData.getPlatforms()) );
+        ((TextView)cardView.findViewById(R.id.show_languages)).setText( asCommaList(userData.getLanguages()) );
+
+
+
         card.setOnExpandAnimatorEndListener(new Card.OnExpandAnimatorEndListener() {
             @Override
             public void onExpandEnd(Card card) {
@@ -178,6 +187,16 @@ public class SwipeFragment extends Fragment {
             }
         });
         return card;
+    }
+
+    private String asCommaList(List<String> strings) {
+        if(strings == null) return "";
+
+        String foo = strings.get(0);
+        for(int i = 1; i < strings.size(); i++) {
+            foo += ", " + strings.get(i);
+        }
+        return foo;
     }
 
     @Override
