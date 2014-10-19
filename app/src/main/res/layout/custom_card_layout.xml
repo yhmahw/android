@@ -21,16 +21,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:layout_centerHorizontal="true"
-                android:text="Tylor Garrett"/>
+                android:layout_centerHorizontal="true"/>
             <TextView
                 android:layout_below="@id/card_main_inner_simple_title"
                 android:id="@+id/card_profile_description"
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="This is the description of each hacker. I need the text to wrap just in case they right a lot of stuff."/>
+                android:layout_centerHorizontal="true"/>
             </RelativeLayout>
 
 
