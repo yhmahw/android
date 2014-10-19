@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import me.gethelloworld.android.youhadmeathelloworld.ChatActivity;
 import me.gethelloworld.android.youhadmeathelloworld.R;
 import me.gethelloworld.android.youhadmeathelloworld.RootFragmentInteractionListener;
+import me.gethelloworld.android.youhadmeathelloworld.api.MatchesCollections;
+import me.gethelloworld.android.youhadmeathelloworld.controller.MatchesManager;
 import me.gethelloworld.android.youhadmeathelloworld.listeners.OnPageToFragmentListener;
 
 public class MatchesFragment extends ListFragment implements OnPageToFragmentListener {
@@ -74,7 +76,7 @@ public class MatchesFragment extends ListFragment implements OnPageToFragmentLis
     public void onPageToFragment() {
         Log.d("Page", "Matches selected");
 
-        setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, TESTDATA ));
+        setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, MatchesManager.getMatchesCollection().getInterests())); //TODO: This is WRONG. I need MATCHES not swipe yesses.
     }
 
     @Override
