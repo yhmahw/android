@@ -2,6 +2,8 @@ package me.gethelloworld.android.youhadmeathelloworld.api;
 
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -23,9 +25,8 @@ public interface HelloAPI {
     void getHackathons(Callback<List<Hackathon>> hackathonListCallback);
 
 
-    //TODO: Figure out if I even need to use this.
-    @PUT("/hackathon/{name}/join/{userId}")
-    void joinHackathon(@Path("name") String name, @Path("userId") String userId);
+    @PUT("/user/{userid}")
+    void updateUser(@Path("userid") String userId, @Body Map<String, Object> fields, Callback<Void> callback);
 
     @PUT("/user/{userId}/vote")
     void sendVote(@Path("userId") String userId, @Body Vote vote, Callback<String> callback);
