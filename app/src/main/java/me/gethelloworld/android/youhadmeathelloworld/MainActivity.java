@@ -1,15 +1,24 @@
 package me.gethelloworld.android.youhadmeathelloworld;
 
 import android.app.ActionBar;
+import android.app.Application;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.gimbal.proximity.ProximityError;
+import com.gimbal.proximity.ProximityFactory;
+import com.gimbal.proximity.ProximityListener;
+import com.gimbal.proximity.Visit;
+import com.gimbal.proximity.VisitListener;
+import com.gimbal.proximity.VisitManager;
 import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify;
 
@@ -17,8 +26,13 @@ import me.gethelloworld.android.youhadmeathelloworld.adapters.MainViewPagerAdapt
 import me.gethelloworld.android.youhadmeathelloworld.controller.MainFragmentsStore;
 import me.gethelloworld.android.youhadmeathelloworld.listeners.OnPageToFragmentListener;
 
+import com.gimbal.proximity.Proximity;
+import com.gimbal.proximity.ProximityListener;
 
-public class MainActivity extends FragmentActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, RootFragmentInteractionListener {
+import java.util.Date;
+
+
+public class MainActivity extends FragmentActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, RootFragmentInteractionListener, ProximityListener, VisitListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -33,11 +47,27 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 
     private ViewPager mPager;
     private MainViewPagerAdapter mPagerAdapter;
+    public Date lastRecordedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Proximity Service Stuff
+        //only run when sdk is 4.4.3 or higher
+
+        int sdk = Build.VERSION.SDK_INT;
+        int target = Build.VERSION_CODES.JELLY_BEAN;
+
+        if ( sdk >= target ) {
+            Proximity.initialize(this,
+                    "15b9185423d8d4d2bb6a1a9bfac6e7f83c200c0a7ec92eacd17c223f6408e816",
+                    "80d4f0eaabee200e58121eda35150e75e4bfe9a05c9a289e51c1f40a0a06f75c");
+            Proximity.startService(this);
+        }
+
+
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -173,6 +203,43 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void serviceStarted() {
+        // this will be invoked if the service has successfully started
+        // bluetooth scanning will be started at this point
+        Log.d("Proximity", "Proximity Service successfully started!");
+
+        VisitManager visitManager = ProximityFactory.getInstance().createVisitManager();
+        visitManager.setVisitListener(this);
+        visitManager.start();
+    }
+
+    @Override
+    public void startServiceFailed(int i, String s) {
+        // this will be called if the service has failed to start
+        String logMsg = String.format("Proximity Service failed with error code %d, message: %s!", i, s);
+        Log.d("Proximity", logMsg);
+        //check for the error Code for Bluetooth status check
+        if (i == ProximityError.PROXIMITY_BLUETOOTH_IS_OFF.getCode()) {
+            //turn on the bluetooth and once the bluetooth is ON call startService again.
+        }
+    }
+
+    @Override
+    public void didArrive(Visit visit) {
+
+    }
+
+    @Override
+    public void receivedSighting(Visit visit, Date date, Integer integer) {
+       Log.d("tags", "Received Sighting Date: " + date);
+    }
+
+    @Override
+    public void didDepart(Visit visit) {
 
     }
 }
